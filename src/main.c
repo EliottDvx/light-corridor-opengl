@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "3D_tools.h"
-#include "draw_scene.h"
+#include "corridor.h"
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1000;
@@ -71,18 +71,12 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				printf("Zoom is %f\n",dist_zoom);
 				break;
 			case GLFW_KEY_UP :
-				if (phy>2) phy -= 2;
-				printf("Phy %f\n",phy);
 				break;
 			case GLFW_KEY_DOWN :
-				if (phy<=88.) phy += 2;
-				printf("Phy %f\n",phy);
 				break;
 			case GLFW_KEY_LEFT :
-				theta -= 5;
 				break;
 			case GLFW_KEY_RIGHT :
-				theta += 5;
 				break;
 			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
 		}
@@ -134,58 +128,20 @@ int main(int argc, char** argv)
 		setCamera();
 
 		/* Initial scenery setup */
-		glPushMatrix();
-			glTranslatef(0.0,0.0,-0.01);
-			glScalef(10.0,10.0,1.0);
-			glColor3f(0.0,0.0,0.1);
-			drawSquare();
-		glPopMatrix();
-
-		glPushMatrix();
-		glScalef(5,5,5);
-		drawFrame();
-		glPopMatrix();
-
-		glColor3f(1,1,1);
-			glPushMatrix();
-			glTranslatef(4*cos(glfwGetTime()*2),4*sin(glfwGetTime()*2), 5);
-			drawSphere();
-		glPopMatrix();
 
 
 		if(flag_animate_rot_scale){
 			current_scale_pos+= .2;
 		}
-
-		glRotatef(current_scale_pos*3, 0, 0, 1);
-
-		drawBase();
+		
+		glTranslatef(0.,0.,10.);
+		drawFrame();
+		drawWall();
 
 		if(flag_animate_rot_arm){
 			current_arm_pos_incr++;
 			current_arm_pos = sin(current_arm_pos_incr/30)*20;
 		}
-
-		glPushMatrix();
-			
-			glTranslatef(0, 0, 11.);
-
-			glRotatef(current_arm_pos, 1, 0, 0);
-
-
-			drawArm();
-
-			glPushMatrix();
-				glTranslatef(0, 10, 0);
-				glRotatef(-current_arm_pos, 1, 0, 0);
-				drawPan();
-			glPopMatrix();
-			glPushMatrix();
-				glTranslatef(0, -10, 0);
-				glRotatef(-current_arm_pos, 1, 0, 0);
-				drawPan();
-			glPopMatrix();
-		glPopMatrix();
 
 		/* Scene rendering */
 

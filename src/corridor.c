@@ -18,28 +18,38 @@
 
 void drawWall() {
 	glColor3f(0.4,0.3,0.5);
-
-	glTranslatef(0.,0.,30.);
 	
-	glScalef(100, 20, 0);
 	glPushMatrix();
-
+		
 		glPushMatrix();
-			glRotatef(80, 0, 1, 0);
+			glTranslatef(5,0.,0.);
+			glRotatef(90, 0, 1, 0);
+			glScalef(50, 10, 0);
 			drawSquare();
 		glPopMatrix();
 
-		// glPushMatrix();
-		// 	drawSquare();
-		// glPopMatrix();
+		glPushMatrix();
+			glTranslatef(-5,0.,0.);
+			glRotatef(-90, 0, 1, 0);
+			glScalef(50, 10, 0);
+		drawSquare();
+		glPopMatrix();
 
-		// glPushMatrix();
-		// 	drawSquare();
-		// glPopMatrix();
+		glColor3f(1.,0.2,0.);
 
-		// glPushMatrix();
-		// 	drawSquare();
-		// glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0.,-5.,0.);
+			glRotatef(-90, 1, 0, 0);
+			glScalef(10, 50, 0);
+		 	drawSquare();
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(0.,5.,0.);
+			glRotatef(90, 1, 0, 0);
+			glScalef(10, 50, 0);
+			drawSquare();
+		glPopMatrix();
 
 	glPopMatrix();
 }

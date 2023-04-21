@@ -6,7 +6,7 @@ float phy = 0.0f; // Angle between z axis and viewpoint
 float dist_zoom = 30.0f; // Distance between origin and viewpoint
 
 void setCamera() {
-	gluLookAt(0.,0.1,0.,
+	gluLookAt(0.,0.,0.,
 			  0.0,0.0,1.0,
 			  0.0,1.0,0.0);
 }

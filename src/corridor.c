@@ -2,7 +2,7 @@
 #include "3D_tools.h"
 
 void drawWall() {
-	glColor3f(0.4,0.3,0.5);
+	glColor3f(0.33,0.37,0.46);
 	
 	glPushMatrix();
 		
@@ -20,7 +20,7 @@ void drawWall() {
 		drawSquare();
 		glPopMatrix();
 
-		glColor3f(1.,0.2,0.);
+		glColor3f(.17,.19,.27);
 
 		glPushMatrix();
 			glTranslatef(0.,-5./ratio,0.);
@@ -41,7 +41,7 @@ void drawWall() {
 
 
 void drawLinesWall() {
-	glColor3f(0.9,0.9,0.9);
+	glColor3f(0,0,0);
 	glPushMatrix();
 		for(int i=0; i<5; i++){
 			glTranslatef(0.,0.,i);

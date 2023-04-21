@@ -25,6 +25,9 @@ static float current_scale_pos = 0;
 static float current_arm_pos_incr = 0;
 static float current_arm_pos = 0;
 
+/*Gestion des touches*/
+float pas = 0.;
+
 /* Error handling function */
 void onError(int error, const char* description)
 {
@@ -71,6 +74,7 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				printf("Zoom is %f\n",dist_zoom);
 				break;
 			case GLFW_KEY_UP :
+				pas += 0.1;
 				break;
 			case GLFW_KEY_DOWN :
 				break;
@@ -140,7 +144,7 @@ int main(int argc, char** argv)
 		drawWall();
 
 		glTranslatef(0.,0.,-9.);
-		drawLinesWall();
+		drawLinesWall(pas);
 
 		if(flag_animate_rot_arm){
 			current_arm_pos_incr++;

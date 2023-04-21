@@ -128,6 +128,10 @@ int main(int argc, char** argv)
 		drawWall();
 
 
+		glTranslatef(0.,0.,-9.);
+		drawLinesWall();
+
+
 		/* Scene rendering */
 
 		/* Swap front and back buffers */

@@ -23,14 +23,14 @@ void drawWall() {
 		glColor3f(1.,0.2,0.);
 
 		glPushMatrix();
-			glTranslatef(0.,-5.,0.);
+			glTranslatef(0.,-5./ratio,0.);
 			glRotatef(-90, 1, 0, 0);
 			glScalef(10, 50, 0);
 		 	drawSquare();
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(0.,5.,0.);
+			glTranslatef(0.,5./ratio,0.);
 			glRotatef(90, 1, 0, 0);
 			glScalef(10, 50, 0);
 			drawSquare();
@@ -38,6 +38,18 @@ void drawWall() {
 
 	glPopMatrix();
 }
+
+
+void drawLinesWall() {
+	glColor3f(0.9,0.9,0.9);
+	glPushMatrix();
+		for(int i=0; i<5; i++){
+			glTranslatef(0.,0.,i);
+			drawLine();
+		}
+	glPopMatrix();
+}
+
 
 void drawFrame() {
     glBegin(GL_LINES);

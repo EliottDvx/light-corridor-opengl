@@ -8,3 +8,4 @@
 
 void drawFrame();
 void drawWall();
+void drawLineWall();

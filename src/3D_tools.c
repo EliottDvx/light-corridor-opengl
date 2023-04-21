@@ -4,6 +4,7 @@
 float theta = 90.0f; // Angle between x axis and viewpoint
 float phy = 0.0f; // Angle between z axis and viewpoint
 float dist_zoom = 30.0f; // Distance between origin and viewpoint
+float ratio = 16./9;
 
 void setCamera() {
 	gluLookAt(0.,0.,0.,
@@ -48,4 +49,13 @@ void drawCone() {
 
 void drawSphere() {
 	gluSphere(gluNewQuadric(),1.0,NB_SEG_CIRCLE,NB_SEG_CIRCLE);
+}
+
+void drawLine() {
+	glBegin(GL_LINE_LOOP);
+			glVertex3f(-1, 1./ratio, 0.);
+			glVertex3f(1, 1./ratio, 0.);
+			glVertex3f(1, -1./ratio, 0.);
+			glVertex3f(-1., -1./ratio, 0.);
+	glEnd();
 }

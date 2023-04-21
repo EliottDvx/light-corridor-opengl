@@ -9,8 +9,8 @@
 #include "corridor.h"
 
 /* Window properties */
-static const unsigned int WINDOW_WIDTH = 1000;
-static const unsigned int WINDOW_HEIGHT = 1000;
+static const unsigned int WINDOW_WIDTH = 1280;
+static const unsigned int WINDOW_HEIGHT = 720;
 static const char WINDOW_TITLE[] = "TD04 Ex01";
 static float aspectRatio = 1.0;
 
@@ -136,6 +136,7 @@ int main(int argc, char** argv)
 		
 		glTranslatef(0.,0.,10.);
 		drawFrame();
+
 		drawWall();
 
 		if(flag_animate_rot_arm){

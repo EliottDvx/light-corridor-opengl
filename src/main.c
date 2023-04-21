@@ -7,6 +7,7 @@
 #include <math.h>
 #include "3D_tools.h"
 #include "corridor.h"
+#include "racket.h"
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1280;
@@ -17,13 +18,9 @@ static float aspectRatio = 1.0;
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 60.;
 
-/* IHM flag */
-static int flag_animate_rot_scale = 0;
-static int flag_animate_rot_arm = 0;
+/* Racket Coordinates */
+double racketX, racketY;
 
-static float current_scale_pos = 0;
-static float current_arm_pos_incr = 0;
-static float current_arm_pos = 0;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -55,12 +52,6 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				break;
 			case GLFW_KEY_P :
 				glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-				break;
-			case GLFW_KEY_R :
-				flag_animate_rot_arm = 1-flag_animate_rot_arm;
-				break;
-			case GLFW_KEY_T :
-				flag_animate_rot_scale = 1-flag_animate_rot_scale;
 				break;
 			case GLFW_KEY_KP_9 :
 				if(dist_zoom<100.0f) dist_zoom*=1.1;
@@ -128,24 +119,18 @@ int main(int argc, char** argv)
 		setCamera();
 
 		/* Initial scenery setup */
+		getRacketCoords(window, &racketX, &racketY);
+		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-
-		if(flag_animate_rot_scale){
-			current_scale_pos+= .2;
-		}
-		
 		glTranslatef(0.,0.,10.);
 		drawFrame();
 
 		drawWall();
 
+
 		glTranslatef(0.,0.,-9.);
 		drawLinesWall();
 
-		if(flag_animate_rot_arm){
-			current_arm_pos_incr++;
-			current_arm_pos = sin(current_arm_pos_incr/30)*20;
-		}
 
 		/* Scene rendering */
 

@@ -1,21 +1,6 @@
 #include "corridor.h"
 #include "3D_tools.h"
 
-// void drawBase() {
-
-// 	glColor3f((235./255.), (207./255.), (52./255.));
-
-// 	glPushMatrix();
-// 		glScalef(3.,3.,0.1);
-// 		drawCircle();
-// 	glPopMatrix();
-
-// 	glPushMatrix();
-// 		glScalef(2., 2., 10.);
-// 		drawCone();
-// 	glPopMatrix();
-// }
-
 void drawWall() {
 	glColor3f(0.4,0.3,0.5);
 	
@@ -54,6 +39,7 @@ void drawWall() {
 	glPopMatrix();
 }
 
+
 void drawLinesWall() {
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
@@ -63,6 +49,7 @@ void drawLinesWall() {
 		}
 	glPopMatrix();
 }
+
 
 void drawFrame() {
     glBegin(GL_LINES);

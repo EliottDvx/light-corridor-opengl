@@ -12,9 +12,6 @@ void drawRacket(double x, double y, int w, int h, float ar){
     double glWallHeight = (glWallWidth / w) * h;
     double distance = glWallHeight / (2 * tan(toRad(30.)));
 
-    // double glPosX = -(glWallWidth/w) * (x - (w/2.));
-    // double glPosY = -(glWallWidth/w) * (y - (h/2.));
-
     double glPosX = fmin(glWallWidth/2.0 - racketSize/2.0, fmax(-glWallWidth/2.0 + racketSize/2.0, -(glWallWidth/w) * (x - (w/2.))));
     double glPosY = fmin(glWallHeight/2.0 - racketSize/2.0, fmax(-glWallHeight/2.0 + racketSize/2.0, -(glWallWidth/w) * (y - (h/2.))));
 

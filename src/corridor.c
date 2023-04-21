@@ -1,6 +1,8 @@
 #include "corridor.h"
 #include "3D_tools.h"
 
+static float ratio = 16./9.;
+
 // void drawBase() {
 
 // 	glColor3f((235./255.), (207./255.), (52./255.));
@@ -38,14 +40,14 @@ void drawWall() {
 		glColor3f(1.,0.2,0.);
 
 		glPushMatrix();
-			glTranslatef(0.,-5.,0.);
+			glTranslatef(0.,-5./ratio,0.);
 			glRotatef(-90, 1, 0, 0);
 			glScalef(10, 50, 0);
 		 	drawSquare();
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(0.,5.,0.);
+			glTranslatef(0.,5./ratio,0.);
 			glRotatef(90, 1, 0, 0);
 			glScalef(10, 50, 0);
 			drawSquare();

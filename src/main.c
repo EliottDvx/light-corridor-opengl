@@ -139,6 +139,9 @@ int main(int argc, char** argv)
 
 		drawWall();
 
+		glTranslatef(0.,0.,-9.);
+		drawLinesWall();
+
 		if(flag_animate_rot_arm){
 			current_arm_pos_incr++;
 			current_arm_pos = sin(current_arm_pos_incr/30)*20;

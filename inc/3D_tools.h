@@ -15,6 +15,7 @@ static const float Z_FAR = 100.f;
 extern float theta;      // Angle between x axis and viewpoint
 extern float phy  ;      // Angle between z axis and viewpoint
 extern float dist_zoom ; // Distance between origin and viewpoint
+extern float ratio;
 
 void setCamera();
 
@@ -26,6 +27,8 @@ void drawCircle();
 void drawCone();
 
 void drawSphere();
+
+void drawLine();
 
 /* Small tools */
 float toRad(float deg);

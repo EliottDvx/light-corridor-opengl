@@ -8,4 +8,4 @@
 
 void drawFrame();
 void drawWall();
-void drawLinesWall();
+void drawLinesWall(float pas);

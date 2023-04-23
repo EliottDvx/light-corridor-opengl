@@ -22,6 +22,9 @@ static const double FRAMERATE_IN_SECONDS = 1. / 60.;
 double racketX, racketY;
 
 
+/*Gestion des touches*/
+float pas = 0.;
+
 /* Error handling function */
 void onError(int error, const char* description)
 {
@@ -62,6 +65,7 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				printf("Zoom is %f\n",dist_zoom);
 				break;
 			case GLFW_KEY_UP :
+				pas += 0.1;
 				break;
 			case GLFW_KEY_DOWN :
 				break;
@@ -129,7 +133,7 @@ int main(int argc, char** argv)
 
 
 		glTranslatef(0.,0.,-9.);
-		drawLinesWall();
+		drawLinesWall(pas);
 
 
 		/* Scene rendering */

@@ -39,13 +39,15 @@ void drawWall() {
 	glPopMatrix();
 }
 
-
-void drawLinesWall() {
+void drawLinesWall(float pas) {
 	glColor3f(0,0,0);
 	glPushMatrix();
+	glTranslatef(0.,0.,-pas);
 		for(int i=0; i<5; i++){
-			glTranslatef(0.,0.,i);
-			drawLine();
+			glPushMatrix();
+				glTranslatef(0.,0.,i);
+				drawLine();
+			glPopMatrix();
 		}
 	glPopMatrix();
 }

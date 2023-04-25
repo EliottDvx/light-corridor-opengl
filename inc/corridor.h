@@ -8,4 +8,16 @@
 
 void drawFrame();
 void drawWall();
-void drawLinesWall(float pas);
+
+typedef struct Line{
+    float z;
+    struct Line* next;
+}Line;
+
+typedef struct LineList{
+    Line* first;
+}LineList;
+
+void initList(LineList* liste);
+void addLine(LineList *list, float z);
+void drawLinesWall(float pas, LineList list);

@@ -21,9 +21,9 @@ static const double FRAMERATE_IN_SECONDS = 1. / 60.;
 /* Racket Coordinates */
 double racketX, racketY;
 
-
 /*Gestion des touches*/
-float pas = 0.;
+int pressed = 0;
+int pas = 0;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -65,7 +65,7 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				printf("Zoom is %f\n",dist_zoom);
 				break;
 			case GLFW_KEY_UP :
-				pas += 0.1;
+				pressed = 1;
 				break;
 			case GLFW_KEY_DOWN :
 				break;
@@ -76,10 +76,25 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
 		}
 	}
+
+	if(action == GLFW_RELEASE){
+		switch(key){
+			case GLFW_KEY_UP :
+				pressed = 0;
+				break;
+			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
+		}
+	}
 }
 
 int main(int argc, char** argv)
 {
+	LineList list;
+    initList(&list);
+	for(int i = 0; i<10; i++){
+		addLine(&list, i);
+	}
+
 	/* GLFW initialisation */
 	GLFWwindow* window;
 	if (!glfwInit()) return -1;
@@ -110,6 +125,11 @@ int main(int argc, char** argv)
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
+		if(pressed == 1){
+			pas += 1;
+			pas = pas%50;
+		}
+
 		/* Get time (in second) at loop beginning */
 		double startTime = glfwGetTime();
 
@@ -123,19 +143,21 @@ int main(int argc, char** argv)
 		setCamera();
 
 		/* Initial scenery setup */
-		getRacketCoords(window, &racketX, &racketY);
-		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-		glTranslatef(0.,0.,10.);
-		drawFrame();
+		glPushMatrix();
+			glTranslatef(0.,0.,10.);
+			drawFrame();
+		glPopMatrix();
 
 		drawWall();
 
+		glPushMatrix();
+			glTranslatef(0.,0.,1.);
+			drawLinesWall(pas, list);
+		glPopMatrix();
 
-		glTranslatef(0.,0.,-9.);
-		drawLinesWall(pas);
-
-
+		getRacketCoords(window, &racketX, &racketY);
+		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
 		/* Scene rendering */
 
 		/* Swap front and back buffers */

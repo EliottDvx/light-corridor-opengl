@@ -59,7 +59,7 @@ void drawObstacle(float pas, ObstList *list){
 			obst = obst->next;
 			obst->z -= pas;
 			glPushMatrix();
-				glTranslatef(0.,0.,obst->z);
+				glTranslatef(-5.,0.,obst->z);
 				//glScalef(obst->x, obst->y, 0);
 				drawSquare();
 			glPopMatrix();

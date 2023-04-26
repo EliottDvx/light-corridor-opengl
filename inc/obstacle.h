@@ -8,6 +8,8 @@
 
 typedef struct Obst{
     float z;
+    int height;
+    int width;
     int y;
     int x;
     struct Obst* next;

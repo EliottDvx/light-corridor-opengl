@@ -93,23 +93,33 @@ void addLine(LineList *list,float z)
 //     }
 // }
 
-void drawLinesWall(float pas, LineList list) {
-	Line line = *list.first;
-	pas = pas/50;
+void drawLinesWall(float pas, LineList *list) {
+	Line *line = list->first;
+	pas = pas/5;
 	glColor3f(0.1,0.1,0.2);
 	glLineWidth(2.);
 	glPushMatrix();
 
+		line->z -= pas;
+		if(line->z <= 0){
+			line->z = 100;
+		}
 		glPushMatrix();
-			glTranslatef(0.,0.,line.z-pas);
+			glTranslatef(0.,0.,line->z);
+			glScalef(10.,10/ratio, 0.);
 			drawLine();
 		glPopMatrix();
 
-		while (line.next != NULL)
+		while (line->next != NULL)
     	{	
-			line = *line.next;
+			line = line->next;
+			line->z -= pas;
+			if(line->z <= 0){
+				line->z = 100;
+			}
 			glPushMatrix();
-				glTranslatef(0.,0.,line.z-pas);
+				glTranslatef(0.,0.,line->z);
+				glScalef(10.,10/ratio, 0.);
 				drawLine();
 			glPopMatrix();
     		

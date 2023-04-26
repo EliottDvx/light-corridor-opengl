@@ -20,4 +20,4 @@ typedef struct LineList{
 
 void initListLine(LineList* liste);
 void addLine(LineList *list, float z);
-void drawLinesWall(float pas, LineList list);
+void drawLinesWall(float pas, LineList *list);

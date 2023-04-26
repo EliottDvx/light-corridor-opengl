@@ -98,8 +98,8 @@ int main(int argc, char** argv)
 
 	ObstList obstList;
     initListObst(&obstList);
-	for(int i = 0; i<5; i++){
-		addObst(&obstList, i);
+	for(int i = 1; i<=5; i++){
+		addObst(&obstList, i*20);
 	}
 
 	/* GLFW initialisation */

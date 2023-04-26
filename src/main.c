@@ -25,7 +25,7 @@ double racketX, racketY;
 
 /*Gestion des touches*/
 int pressed = 0;
-int pas = 0;
+int pasLine = 0;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -91,10 +91,16 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 int main(int argc, char** argv)
 {
-	LineList list;
-    initList(&list);
+	LineList lineList;
+    initListLine(&lineList);
 	for(int i = 0; i<10; i++){
-		addLine(&list, i);
+		addLine(&lineList, i);
+	}
+
+	ObstList obstList;
+    initListObst(&obstList);
+	for(int i = 0; i<5; i++){
+		addObst(&obstList, i*5);
 	}
 
 	/* GLFW initialisation */
@@ -129,8 +135,8 @@ int main(int argc, char** argv)
 	while (!glfwWindowShouldClose(window))
 	{
 		if(pressed == 1){
-			pas += 1;
-			pas = pas%50;
+			pasLine += 1;
+			pasLine = pasLine%50;
 		}
 
 		/* Get time (in second) at loop beginning */
@@ -155,12 +161,11 @@ int main(int argc, char** argv)
 
 		glPushMatrix();
 			glTranslatef(0.,0.,1.);
-			drawLinesWall(pas, list);
+			drawLinesWall(pasLine, lineList);
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(-3.,0.,10.);
-			drawObstacle();
+			drawObstacle(pressed, &obstList);
 		glPopMatrix();
 		
 		glPushMatrix();

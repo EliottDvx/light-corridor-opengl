@@ -56,9 +56,9 @@ void drawFrame() {
 	glEnd();
 }
 
-void initList(LineList* liste)
+void initListLine(LineList* list)
 {
-    liste->first = NULL;
+    list->first = NULL;
 }
 
 Line *createLine(float z)
@@ -68,10 +68,10 @@ Line *createLine(float z)
     return newLine;
 }
 
-void destroyLine(Line *this) {
-	free(this);
-	this = NULL;
-}
+// void destroyLine(Line *this) {
+// 	free(this);
+// 	this = NULL;
+// }
 
 void addLine(LineList *list,float z)
 {
@@ -80,18 +80,18 @@ void addLine(LineList *list,float z)
     list->first = newLine;
 }
 
-float retireFirstList(LineList* list)
-{
-    Line *tempo = list->first;
-    if(tempo!=NULL){
-        int valeur = tempo->z;
-        list->first = tempo->next;
-        destroyLine(tempo);
-        return valeur;
-    }else{
-        return -1;
-    }
-}
+// float retireFirstList(LineList* list)
+// {
+//     Line *tempo = list->first;
+//     if(tempo!=NULL){
+//         int valeur = tempo->z;
+//         list->first = tempo->next;
+//         destroyLine(tempo);
+//         return valeur;
+//     }else{
+//         return -1;
+//     }
+// }
 
 void drawLinesWall(float pas, LineList list) {
 	Line line = *list.first;

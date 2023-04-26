@@ -8,6 +8,8 @@
 #include "3D_tools.h"
 #include "corridor.h"
 #include "racket.h"
+#include "ball.h"
+#include "obstacle.h"
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1280;
@@ -121,6 +123,7 @@ int main(int argc, char** argv)
 
 	glPointSize(5.0);
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_ALWAYS);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -155,9 +158,19 @@ int main(int argc, char** argv)
 			drawLinesWall(pas, list);
 		glPopMatrix();
 
+		glPushMatrix();
+			glTranslatef(-3.,0.,10.);
+			drawObstacle();
+		glPopMatrix();
+		
+		glPushMatrix();
+			glTranslatef(2.,0.,5.);
+			drawBall();
+		glPopMatrix();
+		
 		getRacketCoords(window, &racketX, &racketY);
 		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
-		
+
 		/* Scene rendering */
 
 		/* Swap front and back buffers */

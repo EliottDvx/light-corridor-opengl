@@ -13,6 +13,9 @@ typedef struct Obst{
     int y;
     int x;
     struct Obst* next;
+    float colorR;
+    float colorG;
+    float colorB;
 }Obst;
 
 typedef struct ObstList{

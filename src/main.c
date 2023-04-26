@@ -9,6 +9,7 @@
 #include "corridor.h"
 #include "racket.h"
 #include "ball.h"
+#include "obstacle.h"
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1280;
@@ -157,14 +158,19 @@ int main(int argc, char** argv)
 			drawLinesWall(pas, list);
 		glPopMatrix();
 
-		getRacketCoords(window, &racketX, &racketY);
-		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
+		glPushMatrix();
+			glTranslatef(-3.,0.,10.);
+			drawObstacle();
+		glPopMatrix();
 		
 		glPushMatrix();
 			glTranslatef(2.,0.,5.);
 			drawBall();
 		glPopMatrix();
 		
+		getRacketCoords(window, &racketX, &racketY);
+		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 		/* Scene rendering */
 
 		/* Swap front and back buffers */

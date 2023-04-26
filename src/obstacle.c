@@ -14,6 +14,9 @@ Obst *createObst(float z)
 	newObst->height = rand()%10+1;
 	newObst->x = rand()%10-5;
 	newObst->y = rand()%6-3;
+	newObst->colorR = -z/500+0.2;
+	newObst->colorG = -z/500+0.2;
+	newObst->colorB = -z/500+0.4;
     return newObst;
 }
 
@@ -50,14 +53,16 @@ void retireObst(ObstList* list, Obst *obst)
 
 void drawObstacle(float pas, ObstList *list){
 	Obst *obst = list->first;
-	pas = pas/5;
 	glLineWidth(2.);
-	glColor3f(0.2,0.2,0.4);
 
 	glPushMatrix();
 	for (obst = list->first; obst != NULL;) {
-		obst->z -= pas;
+		obst->z -= pas/5;
+		obst->colorR = -obst->z/500+0.2;
+		obst->colorG = -obst->z/500+0.2;
+		obst->colorB = -obst->z/500+0.4;
 		glPushMatrix();
+			glColor3f(obst->colorR,obst->colorG,obst->colorB);
 			glTranslatef(obst->x, obst->y, obst->z);
 			glScalef(obst->width, obst->height, 0);
 			drawSquare();

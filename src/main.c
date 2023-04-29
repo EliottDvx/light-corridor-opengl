@@ -25,6 +25,7 @@ double racketX, racketY;
 
 /*Gestion des touches*/
 int pressed = 0;
+int choc = 1;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -78,14 +79,14 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		}
 	}
 
-	if(action == GLFW_RELEASE){
-		switch(key){
-			case GLFW_KEY_UP :
-				pressed = 0;
-				break;
-			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
-		}
-	}
+	// if(action == GLFW_RELEASE){
+	// 	switch(key){
+	// 		case GLFW_KEY_UP :
+	// 			pressed = 0;
+	// 			break;
+	// 		default: fprintf(stdout,"Touche non gérée (%d)\n",key);
+	// 	}
+	// }
 }
 
 int main(int argc, char** argv)
@@ -101,6 +102,8 @@ int main(int argc, char** argv)
 	for(int i = 1; i<=5; i++){
 		addObst(&obstList, i*20);
 	}
+
+	Racket *racket = createRacket();
 
 	/* GLFW initialisation */
 	GLFWwindow* window;
@@ -156,12 +159,12 @@ int main(int argc, char** argv)
 
 		glPushMatrix();
 			//glTranslatef(0.,0.,10.);
-			drawLinesWall(pressed, &lineList);
+			drawLinesWall(choc, &lineList);
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(0.,0.,10.);
-			drawObstacle(pressed, &obstList);
+			glTranslatef(0.,0.,5.);
+			drawObstacle(choc, &obstList);
 		glPopMatrix();
 		
 		glPushMatrix();
@@ -170,7 +173,9 @@ int main(int argc, char** argv)
 		glPopMatrix();
 		
 		getRacketCoords(window, &racketX, &racketY);
-		drawRacket(racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
+		updateRacket(racket, racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
+		drawRacket(*racket, WINDOW_WIDTH, WINDOW_HEIGHT);
+		choc = chocObstacle(obstList, *racket);
 
 		/* Scene rendering */
 

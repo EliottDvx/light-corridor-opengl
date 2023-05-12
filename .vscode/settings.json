@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "racket.h": "c",
+        "stdlib.h": "c",
+        "gl.h": "c",
+        "iterator": "c",
+        "obstacle.h": "c"
+    }
+}

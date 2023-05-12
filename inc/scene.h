@@ -12,6 +12,8 @@ static const unsigned int WINDOW_HEIGHT = 720;
 typedef struct Scene{
     float height;
     float width;
+    int playerMoving;
+    float movingSpeed;
 }Scene;
 
 Scene *createScene();

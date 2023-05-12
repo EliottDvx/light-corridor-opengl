@@ -24,8 +24,7 @@ static const double FRAMERATE_IN_SECONDS = 1. / 60.;
 double racketX, racketY;
 
 /*Gestion des touches*/
-int pressed = 0;
-int choc = 1;
+int leftClic = 0;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -67,7 +66,6 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				printf("Zoom is %f\n",dist_zoom);
 				break;
 			case GLFW_KEY_UP :
-				pressed = 1;
 				break;
 			case GLFW_KEY_DOWN :
 				break;
@@ -89,15 +87,25 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
 		}
 	}
+}
 
-	// if(action == GLFW_RELEASE){
-	// 	switch(key){
-	// 		case GLFW_KEY_UP :
-	// 			pressed = 0;
-	// 			break;
-	// 		default: fprintf(stdout,"Touche non gérée (%d)\n",key);
-	// 	}
-	// }
+void onClic(GLFWwindow* window, int button, int action, int mods){
+	if(action == GLFW_PRESS){
+		switch(button){
+			case GLFW_MOUSE_BUTTON_LEFT :
+				leftClic = 1;
+				break;
+			default: fprintf(stdout,"Touche non gérée (%d)\n",button);
+		}
+	}
+	if(action == GLFW_RELEASE){
+		switch(button){
+			case GLFW_MOUSE_BUTTON_LEFT :
+				leftClic = 0;
+				break;
+			default: fprintf(stdout,"Touche non gérée (%d)\n",button);
+		}
+	}
 }
 
 int main(int argc, char** argv)
@@ -142,6 +150,7 @@ int main(int argc, char** argv)
 
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);
+	glfwSetMouseButtonCallback(window, onClic);
 
 	onWindowResized(window,WINDOW_WIDTH,WINDOW_HEIGHT);
 
@@ -176,12 +185,12 @@ int main(int argc, char** argv)
 
 		glPushMatrix();
 			//glTranslatef(0.,0.,10.);
-			drawLinesWall(choc, &lineList);
+			drawLinesWall(scene, &lineList);
 		glPopMatrix();
 
 		glPushMatrix();
 			// glTranslatef(0.,0.,5.);
-			drawObstacle(choc, &obstList);
+			drawObstacle(scene, &obstList);
 		glPopMatrix();
 		
 		drawBall(*ball);
@@ -190,7 +199,9 @@ int main(int argc, char** argv)
 		getRacketCoords(window, &racketX, &racketY);
 		updateRacket(racket, racketX, racketY, *scene);
 		drawRacket(*racket);
-		choc = chocObstacle(obstList, *racket);
+
+		//choc = chocObstacle(obstList, *racket);
+		scene->playerMoving = chocObstacle(obstList, *racket) && leftClic;
 
 		/* Scene rendering */
 

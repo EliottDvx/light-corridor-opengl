@@ -1,5 +1,6 @@
 #include "obstacle.h"
 #include "3D_tools.h"
+#include "scene.h"
 
 void initListObst(ObstList* list)
 {
@@ -60,13 +61,15 @@ void retireObst(ObstList* list, Obst *obst)
     }
 }
 
-void drawObstacle(float pas, ObstList *list){
+void drawObstacle(Scene *scene, ObstList *list){
 	Obst *obst = list->first;
 	glLineWidth(2.);
 
 	glPushMatrix();
 	for (obst = list->first; obst != NULL;) {
-		obst->z -= pas/5;
+		if(scene->playerMoving){
+			obst->z -= scene->movingSpeed;
+		}
 		obst->colorR = -obst->z/500+0.2;
 		obst->colorG = -obst->z/500+0.2;
 		obst->colorB = -obst->z/500+0.4;

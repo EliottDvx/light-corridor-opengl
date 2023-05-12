@@ -5,11 +5,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "scene.h"
 
 typedef struct Obst{
-    float z;
     int height;
     int width;
+    float z;
     int y;
     int x;
     struct Obst* next;
@@ -24,4 +25,4 @@ typedef struct ObstList{
 
 void initListObst(ObstList* list);
 void addObst(ObstList *list, float z);
-void drawObstacle(float pas, ObstList *list);
+void drawObstacle(Scene *scene, ObstList *list);

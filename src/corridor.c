@@ -1,5 +1,6 @@
 #include "corridor.h"
 #include "3D_tools.h"
+#include "scene.h"
 
 void drawWall() {
 	//glColor3f(0.33,0.37,0.46);
@@ -101,16 +102,18 @@ void addLine(LineList *list,float z)
     list->first = newLine;
 }
 
-void drawLinesWall(float pas, LineList *list) {
+void drawLinesWall(Scene *scene, LineList *list) {
 	Line *line = list->first;
-	pas = pas/5;
+
 	glColor3f(0.1,0.1,0.2);
 	glLineWidth(2.);
 	glPushMatrix();
 
-		line->z -= pas;
-		if(line->z <= 0){
-			line->z = 100;
+		if(scene->playerMoving){
+			line->z -= scene->movingSpeed;
+			if(line->z <= 0){
+				line->z = 100;
+			}
 		}
 		glPushMatrix();
 			glTranslatef(0.,0.,line->z);
@@ -121,9 +124,11 @@ void drawLinesWall(float pas, LineList *list) {
 		while (line->next != NULL)
     	{	
 			line = line->next;
-			line->z -= pas;
-			if(line->z <= 0){
-				line->z = 100;
+			if(scene->playerMoving){
+				line->z -= scene->movingSpeed;
+				if(line->z <= 0){
+					line->z = 100;
+				}
 			}
 			glPushMatrix();
 				glTranslatef(0.,0.,line->z);

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "scene.h"
 
 void drawFrame();
 void drawWall();
@@ -20,4 +21,4 @@ typedef struct LineList{
 
 void initListLine(LineList* liste);
 void addLine(LineList *list, float z);
-void drawLinesWall(float pas, LineList *list);
+void drawLinesWall(Scene *scene, LineList *list);

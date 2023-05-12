@@ -16,3 +16,5 @@ typedef struct Ball{
 Ball *createBall();
 
 void drawBall();
+
+void updateBall(Ball *ball);

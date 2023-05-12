@@ -6,9 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "obstacle.h"
-
-static const unsigned int WINDOW_WIDTH = 1280;
-static const unsigned int WINDOW_HEIGHT = 720;
+#include "scene.h"
 
 typedef struct Racket{
     double racketSize;
@@ -17,7 +15,7 @@ typedef struct Racket{
 }Racket;
 
 Racket *createRacket();
-void updateRacket(Racket *racket, double x, double y, double glWallWidth, double glWallHeight);
+void updateRacket(Racket *racket, double x, double y, Scene scene);
 void drawRacket(Racket racket);
 void getRacketCoords(GLFWwindow* window, double *x, double *y);
 

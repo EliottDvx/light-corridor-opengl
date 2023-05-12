@@ -14,14 +14,14 @@ Racket *createRacket(){
     return racket;
 }
 
-void updateRacket(Racket *racket, double x, double y, double glWallWidth, double glWallHeight){
+void updateRacket(Racket *racket, double x, double y, Scene scene){
     float h = WINDOW_HEIGHT;
     float w = WINDOW_WIDTH;
 
     float racketSize = racket->racketSize;
 
-    racket->x = fmin(glWallWidth/2.0 - racketSize/2.0, fmax(-glWallWidth/2.0 + racketSize/2.0, -(glWallWidth/w) * (x - (w/2.))));
-    racket->y = fmin(glWallHeight/2.0 - racketSize/2.0, fmax(-glWallHeight/2.0 + racketSize/2.0, -(glWallWidth/w) * (y - (h/2.))));
+    racket->x = fmin(scene.width/2.0 - racketSize/2.0, fmax(-scene.width/2.0 + racketSize/2.0, -(scene.width/w) * (x - (w/2.))));
+    racket->y = fmin(scene.height/2.0 - racketSize/2.0, fmax(-scene.height/2.0 + racketSize/2.0, -(scene.height/h) * (y - (h/2.))));
 
 }
 

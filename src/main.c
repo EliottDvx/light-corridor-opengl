@@ -5,11 +5,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+
 #include "3D_tools.h"
 #include "corridor.h"
 #include "racket.h"
 #include "ball.h"
 #include "obstacle.h"
+#include "scene.h"
 
 /* Window properties */
 static const char WINDOW_TITLE[] = "TD04 Ex01";
@@ -89,11 +91,9 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 int main(int argc, char** argv)
 {
-	double glWallWidth = 10.;
-	double glWallHeight = (glWallWidth / WINDOW_WIDTH) * WINDOW_HEIGHT;
+	Scene *scene = createScene();
 
-    double distance = glWallHeight / (2 * tan(toRad(30.)));
-
+    double distance = scene->height / (2 * tan(toRad(30.)));
 
 	LineList lineList;
     initListLine(&lineList);
@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 
 	glPointSize(5.0);
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_ALWAYS);
+	// glDepthFunc(GL_ALWAYS);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -174,12 +174,12 @@ int main(int argc, char** argv)
 		glPopMatrix();
 		
 		glPushMatrix();
-			//glTranslatef(2.,0.,5.);
+			glTranslatef(2.,0.,0.);
 			drawBall();
 		glPopMatrix();
 		
 		getRacketCoords(window, &racketX, &racketY);
-		updateRacket(racket, racketX, racketY, glWallWidth, glWallHeight);
+		updateRacket(racket, racketX, racketY, *scene);
 		drawRacket(*racket);
 		choc = chocObstacle(obstList, *racket);
 

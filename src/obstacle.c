@@ -10,10 +10,19 @@ Obst *createObst(float z)
 {
     Obst *newObst = (Obst*)malloc(sizeof(Obst));
     newObst->z = z;
-	newObst->width = rand()%20+1;
+	newObst->width = rand()%10+1;
 	newObst->height = rand()%10+1;
 	newObst->x = rand()%10-5;
 	newObst->y = rand()%6-3;
+	// while(newObst->width >= 13 && newObst->height >= 5){
+	// 	newObst->width = rand()%10+1;
+	// 	newObst->height = rand()%10+1;
+	// }
+	// printf("%d", newObst->width);
+	// printf("%s", " w ");
+	// printf("%d",newObst->height);
+	// printf("%s", " h \n");
+
 	newObst->colorR = -z/500+0.2;
 	newObst->colorG = -z/500+0.2;
 	newObst->colorB = -z/500+0.4;
@@ -69,14 +78,14 @@ void drawObstacle(float pas, ObstList *list){
 		glPopMatrix();
 		
 		if(obst->z <= 0){
-        Obst *nextObst = obst->next;
-        retireObst(list, obst);
-        addObst(list, 100);
-        obst = nextObst;
-    }
-    else{
-        obst = obst->next;
-    }
+        	Obst *nextObst = obst->next;
+			retireObst(list, obst);
+			addObst(list, 100);
+			obst = nextObst;
+		}
+		else{
+			obst = obst->next;
+		}
 	}
 	glPopMatrix();
 }

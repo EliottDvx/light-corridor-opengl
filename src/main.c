@@ -12,8 +12,6 @@
 #include "obstacle.h"
 
 /* Window properties */
-static const unsigned int WINDOW_WIDTH = 1280;
-static const unsigned int WINDOW_HEIGHT = 720;
 static const char WINDOW_TITLE[] = "TD04 Ex01";
 static float aspectRatio = 1.0;
 
@@ -91,6 +89,12 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 int main(int argc, char** argv)
 {
+	double glWallWidth = 10.;
+	double glWallHeight = (glWallWidth / WINDOW_WIDTH) * WINDOW_HEIGHT;
+
+    double distance = glWallHeight / (2 * tan(toRad(30.)));
+
+
 	LineList lineList;
     initListLine(&lineList);
 	for(int i = 0; i<10; i++){
@@ -150,6 +154,8 @@ int main(int argc, char** argv)
 		setCamera();
 
 		/* Initial scenery setup */
+		glTranslatef(0.,0., distance);
+
 		glPushMatrix();
 			glTranslatef(0.,0.,10.);
 			drawFrame();
@@ -163,18 +169,18 @@ int main(int argc, char** argv)
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(0.,0.,5.);
+			// glTranslatef(0.,0.,5.);
 			drawObstacle(choc, &obstList);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glTranslatef(2.,0.,5.);
+			//glTranslatef(2.,0.,5.);
 			drawBall();
 		glPopMatrix();
 		
 		getRacketCoords(window, &racketX, &racketY);
-		updateRacket(racket, racketX, racketY, WINDOW_WIDTH, WINDOW_HEIGHT);
-		drawRacket(*racket, WINDOW_WIDTH, WINDOW_HEIGHT);
+		updateRacket(racket, racketX, racketY, glWallWidth, glWallHeight);
+		drawRacket(*racket);
 		choc = chocObstacle(obstList, *racket);
 
 		/* Scene rendering */

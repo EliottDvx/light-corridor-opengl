@@ -14,9 +14,10 @@ Racket *createRacket(){
     return racket;
 }
 
-void updateRacket(Racket *racket, double x, double y, int w, int h){
-    double glWallWidth = 10;
-    double glWallHeight = (glWallWidth / w) * h;
+void updateRacket(Racket *racket, double x, double y, double glWallWidth, double glWallHeight){
+    float h = WINDOW_HEIGHT;
+    float w = WINDOW_WIDTH;
+
     float racketSize = racket->racketSize;
 
     racket->x = fmin(glWallWidth/2.0 - racketSize/2.0, fmax(-glWallWidth/2.0 + racketSize/2.0, -(glWallWidth/w) * (x - (w/2.))));
@@ -24,16 +25,11 @@ void updateRacket(Racket *racket, double x, double y, int w, int h){
 
 }
 
-void drawRacket(Racket racket, int w, int h){
-
+void drawRacket(Racket racket){
     float racketSize = racket.racketSize;
-    double glWallWidth = 10;
-    double glWallHeight = (glWallWidth / w) * h;
-
-    double distance = glWallHeight / (2 * tan(toRad(30.)));
 
     glPushMatrix();
-        glTranslatef(racket.x, racket.y, distance);
+        glTranslatef(racket.x, racket.y, 0);
         glBegin(GL_LINES);
             glColor3f(1, 1, 1);
 

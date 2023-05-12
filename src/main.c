@@ -73,6 +73,17 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 				break;
 			case GLFW_KEY_RIGHT :
 				break;
+			case GLFW_KEY_F11 :
+				if (glfwGetWindowMonitor(window) == NULL) {
+                    // Activer le mode plein écran
+                    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+                    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+                    glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+                } else {
+                    // Désactiver le mode plein écran
+                    glfwSetWindowMonitor(window, NULL, 100, 100, 1280, 720, GLFW_DONT_CARE);
+                }
+				break;
 			default: fprintf(stdout,"Touche non gérée (%d)\n",key);
 		}
 	}
@@ -108,6 +119,7 @@ int main(int argc, char** argv)
 	}
 
 	Racket *racket = createRacket();
+	Ball *ball = createBall();
 
 	/* GLFW initialisation */
 	GLFWwindow* window;
@@ -135,7 +147,6 @@ int main(int argc, char** argv)
 
 	glPointSize(5.0);
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_ALWAYS);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -173,10 +184,8 @@ int main(int argc, char** argv)
 			drawObstacle(choc, &obstList);
 		glPopMatrix();
 		
-		glPushMatrix();
-			//glTranslatef(2.,0.,5.);
-			drawBall();
-		glPopMatrix();
+		drawBall(*ball);
+		updateBall(ball);
 		
 		getRacketCoords(window, &racketX, &racketY);
 		updateRacket(racket, racketX, racketY, glWallWidth, glWallHeight);

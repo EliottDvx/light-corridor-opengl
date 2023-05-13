@@ -1,5 +1,6 @@
 #include "ball.h"
 #include "3D_tools.h"
+#include "scene.h"
 
 Ball *createBall(){
     Ball *ball = (Ball*)malloc(sizeof(Ball));
@@ -19,6 +20,12 @@ void drawBall(Ball ball){
     glPopMatrix();
 }
 
-void updateBall(Ball *ball){
-   ball->z+=.1;
+void updateBall(Scene *scene, Ball *ball){
+
+    //Gérer les déplacements de la balle ici
+    ball->z += .2;
+
+    if(scene->playerMoving){
+        ball->z -= scene->movingSpeed;
+    }
 }

@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <math.h>
 
-static const unsigned int WINDOW_WIDTH = 1280;
-static const unsigned int WINDOW_HEIGHT = 720;
+extern unsigned int WINDOW_WIDTH;
+extern unsigned int WINDOW_HEIGHT;
 
 typedef struct Scene{
     float height;

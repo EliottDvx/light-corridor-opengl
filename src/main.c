@@ -23,6 +23,9 @@ static const double FRAMERATE_IN_SECONDS = 1. / 60.;
 /* Racket Coordinates */
 double racketX, racketY;
 
+unsigned int WINDOW_WIDTH = 1280;
+unsigned int WINDOW_HEIGHT = 720;
+
 /*Gestion des touches*/
 int leftClic = 0;
 
@@ -35,6 +38,8 @@ void onError(int error, const char* description)
 void onWindowResized(GLFWwindow* window, int width, int height)
 {
 	aspectRatio = width / (float) height;
+	WINDOW_HEIGHT = height;
+	WINDOW_WIDTH = width;
 
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
@@ -148,6 +153,8 @@ int main(int argc, char** argv)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	glfwSetWindowAspectRatio(window, 16, 9);
+
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);
 	glfwSetMouseButtonCallback(window, onClic);
@@ -194,7 +201,7 @@ int main(int argc, char** argv)
 		glPopMatrix();
 		
 		drawBall(*ball);
-		updateBall(ball);
+		updateBall(scene, ball);
 		
 		getRacketCoords(window, &racketX, &racketY);
 		updateRacket(racket, racketX, racketY, *scene);

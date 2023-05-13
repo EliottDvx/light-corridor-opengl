@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "scene.h"
 
 typedef struct Ball{
     double size;
@@ -17,4 +18,4 @@ Ball *createBall();
 
 void drawBall();
 
-void updateBall(Ball *ball);
+void updateBall(Scene *scene, Ball *ball);

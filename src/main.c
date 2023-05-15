@@ -154,6 +154,8 @@ int main(int argc, char** argv)
 	glfwMakeContextCurrent(window);
 
 	glfwSetWindowAspectRatio(window, 16, 9);
+	glfwSetWindowSizeLimits(window, 640, 360, GLFW_DONT_CARE, GLFW_DONT_CARE);
+
 
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);

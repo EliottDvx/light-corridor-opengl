@@ -31,20 +31,14 @@ void drawRacket(Racket racket){
 
     glPushMatrix();
         glTranslatef(racket.x, racket.y, 0);
-        glBegin(GL_LINES);
+        glBegin(GL_LINE_LOOP);
             glColor3f(1, 1, 1);
 
             glVertex3f(-racketSize/2., -racketSize/2., 0);
             glVertex3f(-racketSize/2., racketSize/2., 0);
-
-            glVertex3f(-racketSize/2., racketSize/2., 0);
-            glVertex3f(racketSize/2., racketSize/2., 0);
-
             glVertex3f(racketSize/2., racketSize/2., 0);
             glVertex3f(racketSize/2., -racketSize/2., 0);
 
-            glVertex3f(racketSize/2., -racketSize/2., 0);
-            glVertex3f(-racketSize/2., -racketSize/2., 0);
         glEnd();
     glPopMatrix();
 }

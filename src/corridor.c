@@ -2,7 +2,7 @@
 #include "3D_tools.h"
 #include "scene.h"
 
-void drawWall() {
+void drawWall(Scene scene) {
 	//glColor3f(0.33,0.37,0.46);
 	glPushMatrix();
 		
@@ -15,7 +15,7 @@ void drawWall() {
 				glColor3f(r, g, b);
 				glTranslatef(5,0.,i*5.);
 				glRotatef(90, 0, 1, 0);
-				glScalef(5, 10, 0);
+				glScalef(5, scene.height, 0);
 				drawSquare();
 			glPopMatrix();
 		}
@@ -29,7 +29,7 @@ void drawWall() {
 				glColor3f(r, g, b);
 				glTranslatef(-5,0.,i*5.);
 				glRotatef(90, 0, 1, 0);
-				glScalef(5, 10, 0);
+				glScalef(5, scene.height, 0);
 				drawSquare();
 			glPopMatrix();
 		}
@@ -43,7 +43,7 @@ void drawWall() {
 				glColor3f(r, g, b);
 				glTranslatef(0.,-5./ratio,i*5.);
 				glRotatef(-90, 1, 0, 0);
-				glScalef(10, 5, 0);
+				glScalef(scene.width, 5, 0);
 				drawSquare();
 			glPopMatrix();
 		}
@@ -57,7 +57,7 @@ void drawWall() {
 				glColor3f(r, g, b);
 				glTranslatef(0.,5./ratio,i*5.);
 				glRotatef(-90, 1, 0, 0);
-				glScalef(10, 5, 0);
+				glScalef(scene.width, 5, 0);
 				drawSquare();
 			glPopMatrix();
 		}
@@ -106,7 +106,7 @@ void drawLinesWall(Scene *scene, LineList *list) {
 	Line *line = list->first;
 
 	glColor3f(0.1,0.1,0.2);
-	glLineWidth(2.);
+	//glLineWidth(2.);
 	glPushMatrix();
 
 		if(scene->playerMoving){
@@ -117,7 +117,7 @@ void drawLinesWall(Scene *scene, LineList *list) {
 		}
 		glPushMatrix();
 			glTranslatef(0.,0.,line->z);
-			glScalef(10.,10/ratio, 0.);
+			glScalef(scene->width,scene->height, 0.);
 			drawLine();
 		glPopMatrix();
 
@@ -132,7 +132,7 @@ void drawLinesWall(Scene *scene, LineList *list) {
 			}
 			glPushMatrix();
 				glTranslatef(0.,0.,line->z);
-				glScalef(10.,10/ratio, 0.);
+				glScalef(scene->width,scene->height, 0.);
 				drawLine();
 			glPopMatrix();
     		

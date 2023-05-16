@@ -53,9 +53,9 @@ void drawSphere() {
 
 void drawLine() {
 	glBegin(GL_LINE_LOOP);
-			glVertex3f(-1, 1., 0.);
-			glVertex3f(1, 1., 0.);
-			glVertex3f(1, -1., 0.);
-			glVertex3f(-1., -1., 0.);
+			glVertex3f(-0.5, 0.5, 0.);
+			glVertex3f(0.5, 0.5, 0.);
+			glVertex3f(0.5, -0.5, 0.);
+			glVertex3f(-0.5, -0.5, 0.);
 	glEnd();
 }

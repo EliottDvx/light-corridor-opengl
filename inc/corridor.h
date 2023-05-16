@@ -8,7 +8,7 @@
 #include "scene.h"
 
 void drawFrame();
-void drawWall();
+void drawWall(Scene scene);
 
 typedef struct Line{
     float z;

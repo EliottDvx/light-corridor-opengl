@@ -188,12 +188,8 @@ int main(int argc, char** argv)
 			drawFrame();
 		glPopMatrix();
 
-		drawWall();
-
-		glPushMatrix();
-			//glTranslatef(0.,0.,10.);
-			drawLinesWall(scene, &lineList);
-		glPopMatrix();
+		drawWall(*scene);
+		drawLinesWall(scene, &lineList);
 
 		glPushMatrix();
 			// glTranslatef(0.,0.,5.);

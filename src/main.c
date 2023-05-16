@@ -121,8 +121,8 @@ int main(int argc, char** argv)
 
 	LineList lineList;
     initListLine(&lineList);
-	for(int i = 0; i<10; i++){
-		addLine(&lineList, i*10);
+	for(int i = 0; i<20; i++){
+		addLine(&lineList, i*5);
 	}
 
 	ObstList obstList;
@@ -191,11 +191,8 @@ int main(int argc, char** argv)
 		drawWall(*scene);
 		drawLinesWall(scene, &lineList);
 
-		glPushMatrix();
-			// glTranslatef(0.,0.,5.);
-			drawObstacle(scene, &obstList);
-		glPopMatrix();
-		
+		drawObstacle(scene, &obstList);
+
 		drawBall(*ball);
 		updateBall(scene, ball);
 		

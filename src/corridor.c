@@ -105,7 +105,7 @@ void addLine(LineList *list,float z)
 void drawLinesWall(Scene *scene, LineList *list) {
 	Line *line = list->first;
 
-	glColor3f(0.1,0.1,0.2);
+	//glColor3f(0.1,0.1,0.2);
 	//glLineWidth(2.);
 	glPushMatrix();
 
@@ -118,6 +118,7 @@ void drawLinesWall(Scene *scene, LineList *list) {
 		glPushMatrix();
 			glTranslatef(0.,0.,line->z);
 			glScalef(scene->width,scene->height, 0.);
+			glColor3f(0.1-(line->z/200.),0.1-(line->z/200.),0.2-(line->z/200.));
 			drawLine();
 		glPopMatrix();
 
@@ -133,6 +134,7 @@ void drawLinesWall(Scene *scene, LineList *list) {
 			glPushMatrix();
 				glTranslatef(0.,0.,line->z);
 				glScalef(scene->width,scene->height, 0.);
+				glColor3f(0.1-(line->z/200.),0.1-(line->z/200.),0.2-(line->z/200.));
 				drawLine();
 			glPopMatrix();
     		

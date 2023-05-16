@@ -3,8 +3,9 @@
 #include <GL/gl.h>
 #include <math.h>
 #include <3D_tools.h>
-#include "obstacle.h"
 #include "racket.h"
+#include "obstacle.h"
+#include "scene.h"
 
 Racket *createRacket(){
     Racket *racket = (Racket*)malloc(sizeof(Racket));
@@ -50,22 +51,4 @@ void drawRacket(Racket racket){
 
 void getRacketCoords(GLFWwindow* window, double *x, double *y){
     glfwGetCursorPos(window, &(*x), &(*y));
-}
-
-int chocObstacle(ObstList list, Racket racket){
-    Obst* obst;
-    float size = racket.racketSize/2.;
-    
-    for (obst = list.first; obst != NULL;obst = obst->next) {
-        
-		if(obst->z <= 0.5){
-            if(racket.x - size < obst->x + obst->width/2. &&
-                racket.x + size > obst->x - obst->width/2. &&
-                racket.y - size < obst->y + obst->height/2. &&
-                racket.y + size > obst->y - obst->height/2.){
-                    return 0;
-            }
-        }
-	}
-    return 1;
 }

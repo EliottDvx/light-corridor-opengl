@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "scene.h"
+#include "racket.h"
 
 typedef struct Obst{
     int height;
@@ -24,5 +25,7 @@ typedef struct ObstList{
 }ObstList;
 
 void initListObst(ObstList* list);
-void addObst(ObstList *list, float z);
-void drawObstacle(Scene *scene, ObstList *list);
+void addObst(ObstList *list, float z, Scene scene, Racket *racket);
+void drawObstacle(Scene *scene, ObstList *list, Racket *racket);
+
+int chocObstacle(ObstList *list, Racket racket);

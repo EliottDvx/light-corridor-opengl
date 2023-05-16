@@ -1,28 +1,26 @@
 #include "obstacle.h"
 #include "3D_tools.h"
 #include "scene.h"
+#include "racket.h"
 
 void initListObst(ObstList* list)
 {
     list->first = NULL;
 }
 
-Obst *createObst(float z)
+Obst *createObst(float z, Scene scene, Racket *racket)
 {
     Obst *newObst = (Obst*)malloc(sizeof(Obst));
     newObst->z = z;
-	newObst->width = rand()%10+1;
-	newObst->height = rand()%10+1;
-	newObst->x = rand()%10-5;
-	newObst->y = rand()%6-3;
-	// while(newObst->width >= 13 && newObst->height >= 5){
-	// 	newObst->width = rand()%10+1;
-	// 	newObst->height = rand()%10+1;
-	// }
-	// printf("%d", newObst->width);
-	// printf("%s", " w ");
-	// printf("%d",newObst->height);
-	// printf("%s", " h \n");
+	int maxWidth = (int)scene.width;
+	int minWidth = (int)scene.width/3;
+	int maxHeight = (int)scene.height;
+	int minHeight = (int)scene.height/3;
+	//newObst->width = rand()%(int)scene.width+1;
+	newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
+	newObst->height = minWidth + rand()%(maxHeight + 1 - minHeight);
+	newObst->x = rand()%(int)scene.width-(int)scene.width/2;
+	newObst->y = rand()%(int)scene.height-(int)scene.height/2;
 
 	newObst->colorR = -z/500+0.2;
 	newObst->colorG = -z/500+0.2;
@@ -35,9 +33,9 @@ void destroyObst(Obst **ppObst) {
     *ppObst = NULL;
 }
 
-void addObst(ObstList *list,float z)
+void addObst(ObstList *list, float z, Scene scene, Racket *racket)
 {
-    Obst *newObst = createObst(z);
+    Obst *newObst = createObst(z, scene, racket);
     newObst->next = list->first;
     list->first = newObst;
 }
@@ -61,7 +59,7 @@ void retireObst(ObstList* list, Obst *obst)
     }
 }
 
-void drawObstacle(Scene *scene, ObstList *list){
+void drawObstacle(Scene *scene, ObstList *list, Racket *racket){
 	Obst *obst = list->first;
 	glLineWidth(2.);
 
@@ -83,7 +81,7 @@ void drawObstacle(Scene *scene, ObstList *list){
 		if(obst->z <= 0){
         	Obst *nextObst = obst->next;
 			retireObst(list, obst);
-			addObst(list, 100);
+			addObst(list, 100, *scene, racket);
 			obst = nextObst;
 		}
 		else{
@@ -91,4 +89,22 @@ void drawObstacle(Scene *scene, ObstList *list){
 		}
 	}
 	glPopMatrix();
+}
+
+int chocObstacle(ObstList *list, Racket racket){
+    Obst* obst;
+    float size = racket.racketSize/2.;
+    
+    for (obst = list->first; obst != NULL;obst = obst->next) {
+        
+		if(obst->z <= 0.5){
+            if(racket.x - size < obst->x + obst->width/2. &&
+                racket.x + size > obst->x - obst->width/2. &&
+                racket.y - size < obst->y + obst->height/2. &&
+                racket.y + size > obst->y - obst->height/2.){
+                    return 0;
+            }
+        }
+	}
+    return 1;
 }

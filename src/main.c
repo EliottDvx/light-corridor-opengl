@@ -116,22 +116,22 @@ void onClic(GLFWwindow* window, int button, int action, int mods){
 int main(int argc, char** argv)
 {
 	Scene *scene = createScene();
+	Racket *racket = createRacket();
 
     double distance = scene->height / (2 * tan(toRad(30.)));
 
 	LineList lineList;
     initListLine(&lineList);
-	for(int i = 0; i<10; i++){
-		addLine(&lineList, i*10);
+	for(int i = 0; i<20; i++){
+		addLine(&lineList, i*5);
 	}
 
 	ObstList obstList;
     initListObst(&obstList);
 	for(int i = 1; i<=5; i++){
-		addObst(&obstList, i*20);
+		addObst(&obstList, i*20, *scene, racket);
 	}
-
-	Racket *racket = createRacket();
+	
 	Ball *ball = createBall();
 
 	/* GLFW initialisation */
@@ -193,11 +193,8 @@ int main(int argc, char** argv)
 		drawWall(*scene);
 		drawLinesWall(scene, &lineList);
 
-		glPushMatrix();
-			// glTranslatef(0.,0.,5.);
-			drawObstacle(scene, &obstList);
-		glPopMatrix();
-		
+		drawObstacle(scene, &obstList, racket);
+
 		drawBall(*ball);
 		updateBall(scene, ball);
 		
@@ -206,7 +203,7 @@ int main(int argc, char** argv)
 		drawRacket(*racket);
 
 		//choc = chocObstacle(obstList, *racket);
-		scene->playerMoving = chocObstacle(obstList, *racket) && leftClic;
+		scene->playerMoving = chocObstacle(&obstList, *racket) && leftClic;
 
 		/* Scene rendering */
 

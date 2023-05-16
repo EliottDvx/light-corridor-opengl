@@ -2,10 +2,10 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "obstacle.h"
 #include "scene.h"
 
 typedef struct Racket{
@@ -18,5 +18,3 @@ Racket *createRacket();
 void updateRacket(Racket *racket, double x, double y, Scene scene);
 void drawRacket(Racket racket);
 void getRacketCoords(GLFWwindow* window, double *x, double *y);
-
-int chocObstacle(ObstList list, Racket racket);

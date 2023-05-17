@@ -1,13 +1,17 @@
 #include "ball.h"
 #include "3D_tools.h"
 #include "scene.h"
+#include "racket.h"
 
 Ball *createBall(){
     Ball *ball = (Ball*)malloc(sizeof(Ball));
     ball->size = .5;
     ball->x = 0;
     ball->y = 0;
-    ball->z = 0;
+    ball->z = 20;
+    ball->vx = 0;
+    ball->vy = 0;
+    ball->vz = -.3;
     return ball;
 }
 
@@ -21,11 +25,37 @@ void drawBall(Ball ball){
 }
 
 void updateBall(Scene *scene, Ball *ball){
-
-    //Gérer les déplacements de la balle ici
-    ball->z += .2;
+    ball->x += ball->vx;
+    ball->y += ball->vy;
+    ball->z += ball->vz;
 
     if(scene->playerMoving){
         ball->z -= scene->movingSpeed;
+    }
+}
+
+void ballRacketCollision(Ball *ball, Racket *racket){
+    if(ball->z <= ball->size
+    && ball->x >= racket->x - racket->racketSize/2 - ball->size/2
+    && ball->y >= racket->y - racket->racketSize/2 - ball->size/2
+    && ball->x <= racket->x + racket->racketSize/2 + ball->size/2
+    && ball->y <= racket->y + racket->racketSize/2 + ball->size/2){
+
+        float relativePosX = (ball->x - racket->x) / (racket->racketSize/2);
+        float relativePosY = (ball->y - racket->y) / (racket->racketSize/2);
+
+        printf("%f %f", relativePosX, relativePosY);
+
+        // Ajuster l'angle de rebond en fonction de la position relative sur la raquette
+        float angleX = relativePosX * 30;
+        float angleY = -relativePosY * 30;
+
+        // Calculer les nouvelles composantes de vitesse de la balle
+        ball->vx = -sin(30) * relativePosX;
+        ball->vy = cos(30) * relativePosY;
+
+        ball->vz = -ball->vz;
+    } else if(ball->z <= ball->size){
+        ball->z = 20;
     }
 }

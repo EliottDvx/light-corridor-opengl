@@ -91,7 +91,7 @@ void drawObstacle(Scene *scene, ObstList *list, Racket *racket){
 	glPopMatrix();
 }
 
-int chocObstacle(ObstList *list, Racket racket){
+int racketObstacleCollision(ObstList *list, Racket racket){
     Obst* obst;
     float size = racket.racketSize/2.;
     

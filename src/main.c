@@ -202,8 +202,7 @@ int main(int argc, char** argv)
 		updateRacket(racket, racketX, racketY, *scene);
 		drawRacket(*racket);
 
-		//choc = chocObstacle(obstList, *racket);
-		scene->playerMoving = chocObstacle(&obstList, *racket) && leftClic;
+		scene->playerMoving = racketObstacleCollision(&obstList, *racket) && leftClic;
 
 		/* Scene rendering */
 

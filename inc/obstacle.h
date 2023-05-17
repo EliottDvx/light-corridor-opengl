@@ -28,4 +28,4 @@ void initListObst(ObstList* list);
 void addObst(ObstList *list, float z, Scene scene, Racket *racket);
 void drawObstacle(Scene *scene, ObstList *list, Racket *racket);
 
-int chocObstacle(ObstList *list, Racket racket);
+int racketObstacleCollision(ObstList *list, Racket racket);

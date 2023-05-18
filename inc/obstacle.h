@@ -26,6 +26,7 @@ typedef struct ObstList{
 
 void initListObst(ObstList* list);
 void addObst(ObstList *list, float z, Scene scene, Racket *racket);
-void drawObstacle(Scene *scene, ObstList *list, Racket *racket);
+void drawObstacle(Obst *obst);
+void updateObstacles(Scene *scene, ObstList *list, Racket *racket, int racketObstacleColliding);
 
 int racketObstacleCollision(ObstList *list, Racket racket);

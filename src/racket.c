@@ -30,7 +30,7 @@ void drawRacket(Racket racket){
     float racketSize = racket.racketSize;
 
     glPushMatrix();
-        glTranslatef(racket.x, racket.y, 0);
+        glTranslatef(racket.x, racket.y, -.01);
         glBegin(GL_LINE_LOOP);
             glColor3f(1, 1, 1);
 

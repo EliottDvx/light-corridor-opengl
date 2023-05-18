@@ -26,8 +26,11 @@ double racketX, racketY;
 unsigned int WINDOW_WIDTH = 1280;
 unsigned int WINDOW_HEIGHT = 720;
 
-/*Gestion des touches*/
+/* Gestion des touches */
 int leftClic = 0;
+
+/* Stockage résultat collision raquette obstacle*/
+int racketObstacleColliding = 0;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -186,7 +189,8 @@ int main(int argc, char** argv)
 		glTranslatef(0., 0., distance);
 
 		/* Collisions */
-		scene->playerMoving = racketObstacleCollision(&obstList, *racket) && leftClic;
+		racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
+		scene->playerMoving = !racketObstacleColliding && leftClic;
 		ballRacketCollision(ball, racket); 
 		
 		/* Update positions */
@@ -197,7 +201,7 @@ int main(int argc, char** argv)
 		/* Scene rendering */
 		drawWall(*scene);
 		drawLinesWall(scene, &lineList);
-		drawObstacle(scene, &obstList, racket);
+		updateObstacles(scene, &obstList, racket, racketObstacleColliding);
 		drawBall(*ball);
 		drawRacket(*racket);
 

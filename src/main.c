@@ -191,7 +191,8 @@ int main(int argc, char** argv)
 		/* Collisions */
 		racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
 		scene->playerMoving = !racketObstacleColliding && leftClic;
-		ballRacketCollision(ball, racket); 
+		ballRacketCollision(ball, racket);
+		ballCorridorCollision(ball, scene);
 		
 		/* Update positions */
 		getRacketCoords(window, &racketX, &racketY);

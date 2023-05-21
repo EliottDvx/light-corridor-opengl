@@ -26,3 +26,5 @@ void drawBall();
 void updateBall(Scene *scene, Ball *ball);
 
 void ballRacketCollision(Ball *ball, Racket *racket);
+
+void ballCorridorCollision(Ball *ball, Scene *scene);

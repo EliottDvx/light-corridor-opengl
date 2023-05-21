@@ -58,3 +58,18 @@ void ballRacketCollision(Ball *ball, Racket *racket){
         ball->vz = -ball->vz * factor;
     }
 }
+
+void ballCorridorCollision(Ball *ball, Scene *scene){
+    if(ball->x >= scene->width/2 - ball->size){
+        ball->vx = -ball->vx;
+    }
+    if(ball->x <= -scene->width/2 + ball->size){
+        ball->vx = -ball->vx;
+    }
+    if(ball->y >= scene->height/2 - ball->size){
+        ball->vy = -ball->vy;
+    }
+    if(ball->y <= -scene->height/2 + ball->size){
+        ball->vy = -ball->vy;
+    }
+}

@@ -16,6 +16,7 @@ typedef struct Ball{
     double vx;
     double vy;
     double vz;
+    double maxSpeed;
 }Ball;
 
 Ball *createBall();

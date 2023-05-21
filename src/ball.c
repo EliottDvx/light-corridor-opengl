@@ -2,6 +2,7 @@
 #include "3D_tools.h"
 #include "scene.h"
 #include "racket.h"
+#include <math.h>
 
 Ball *createBall(){
     Ball *ball = (Ball*)malloc(sizeof(Ball));
@@ -12,6 +13,7 @@ Ball *createBall(){
     ball->vx = 0;
     ball->vy = 0;
     ball->vz = -.3;
+    ball->maxSpeed = .3;
     return ball;
 }
 
@@ -44,18 +46,15 @@ void ballRacketCollision(Ball *ball, Racket *racket){
         float relativePosX = (ball->x - racket->x) / (racket->racketSize/2);
         float relativePosY = (ball->y - racket->y) / (racket->racketSize/2);
 
-        printf("%f %f", relativePosX, relativePosY);
+        double newVx = relativePosX / 4;
+        double newVy = relativePosY / 4;
 
-        // Ajuster l'angle de rebond en fonction de la position relative sur la raquette
-        float angleX = relativePosX * 30;
-        float angleY = -relativePosY * 30;
+        double normalisation = sqrt(pow(newVx, 2) + pow(newVy, 2) + pow(ball->vz, 2));
 
-        // Calculer les nouvelles composantes de vitesse de la balle
-        ball->vx = -sin(30) * relativePosX;
-        ball->vy = cos(30) * relativePosY;
+        double factor = ball->maxSpeed / normalisation;
 
-        ball->vz = -ball->vz;
-    } else if(ball->z <= ball->size){
-        ball->z = 20;
+        ball->vx = newVx * factor;
+        ball->vy = newVy * factor;
+        ball->vz = -ball->vz * factor;
     }
 }

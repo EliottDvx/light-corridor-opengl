@@ -3,13 +3,14 @@
 #include "scene.h"
 #include "racket.h"
 #include <math.h>
+#include "obstacle.h"
 
 Ball *createBall(){
     Ball *ball = (Ball*)malloc(sizeof(Ball));
     ball->size = .5;
     ball->x = 0;
     ball->y = 0;
-    ball->z = 20;
+    ball->z = 10;
     ball->vx = 0;
     ball->vy = 0;
     ball->vz = -.3;
@@ -48,6 +49,7 @@ void ballRacketCollision(Ball *ball, Racket *racket){
 
         double newVx = relativePosX / 4;
         double newVy = relativePosY / 4;
+        double newVz = fabs(ball->vz);
 
         double normalisation = sqrt(pow(newVx, 2) + pow(newVy, 2) + pow(ball->vz, 2));
 
@@ -55,7 +57,7 @@ void ballRacketCollision(Ball *ball, Racket *racket){
 
         ball->vx = newVx * factor;
         ball->vy = newVy * factor;
-        ball->vz = -ball->vz * factor;
+        ball->vz = newVz * factor;
     }
 }
 
@@ -71,5 +73,20 @@ void ballCorridorCollision(Ball *ball, Scene *scene){
     }
     if(ball->y <= -scene->height/2 + ball->size){
         ball->vy = -ball->vy;
+    }
+}
+
+void ballObstacleCollision(Ball *ball, ObstList *list){
+    Obst *obst = list->first;
+    float wallThickness = .8;
+
+    for (obst = list->first; obst != NULL;) {
+        if(ball->z >= obst->z - wallThickness/2 && ball->z <= obst->z + wallThickness/2){
+            if(obst->x - obst->width/2 - ball->size <= ball->x && ball->x <= obst->x + obst->width/2 + ball->size && ball->y >= obst->y - obst->height/2 - ball->size && ball->y <= obst->y + obst->height/2 + ball->size){
+                ball->vz = -ball->vz;
+            }
+        }
+
+        obst = obst->next;
     }
 }

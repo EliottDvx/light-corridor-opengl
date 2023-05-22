@@ -47,8 +47,8 @@ void ballRacketCollision(Ball *ball, Racket *racket){
         float relativePosX = (ball->x - racket->x) / (racket->racketSize/2);
         float relativePosY = (ball->y - racket->y) / (racket->racketSize/2);
 
-        double newVx = relativePosX / 4;
-        double newVy = relativePosY / 4;
+        double newVx = relativePosX / 5;
+        double newVy = relativePosY / 5;
         double newVz = fabs(ball->vz);
 
         double normalisation = sqrt(pow(newVx, 2) + pow(newVy, 2) + pow(ball->vz, 2));

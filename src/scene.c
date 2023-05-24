@@ -6,5 +6,6 @@ Scene *createScene(){
     scene->height = (scene->width / WINDOW_WIDTH) * WINDOW_HEIGHT;
     scene->playerMoving = 0;
     scene->movingSpeed = .15;
+    scene->gameState = MENU;
     return scene;
 }

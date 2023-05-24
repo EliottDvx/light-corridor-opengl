@@ -49,9 +49,9 @@ void ballRacketCollision(Ball *ball, Racket *racket){
 
         double newVx = relativePosX / 5;
         double newVy = relativePosY / 5;
-        double newVz = fabs(ball->vz);
+        double newVz = ball->maxSpeed;
 
-        double normalisation = sqrt(pow(newVx, 2) + pow(newVy, 2) + pow(ball->vz, 2));
+        double normalisation = sqrt(pow(newVx, 2) + pow(newVy, 2) + pow(newVz, 2));
 
         double factor = ball->maxSpeed / normalisation;
 
@@ -81,12 +81,18 @@ void ballObstacleCollision(Ball *ball, ObstList *list){
     float wallThickness = .8;
 
     for (obst = list->first; obst != NULL;) {
-        if(ball->z >= obst->z - wallThickness/2 && ball->z <= obst->z + wallThickness/2){
+        if(ball->z + ball->size/2 >= obst->z - wallThickness/2 && ball->z - ball->size/2 <= obst->z + wallThickness/2){
             if(obst->x - obst->width/2 - ball->size <= ball->x && ball->x <= obst->x + obst->width/2 + ball->size && ball->y >= obst->y - obst->height/2 - ball->size && ball->y <= obst->y + obst->height/2 + ball->size){
                 ball->vz = -ball->vz;
             }
         }
 
         obst = obst->next;
+    }
+}
+
+void ballVoidCollision(Ball *ball, Scene* scene){
+    if(ball->z <= 0 - ball->size){
+        scene->gameState = OVER;
     }
 }

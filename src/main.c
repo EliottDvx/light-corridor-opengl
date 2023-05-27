@@ -26,8 +26,13 @@ double racketX, racketY;
 unsigned int WINDOW_WIDTH = 1280;
 unsigned int WINDOW_HEIGHT = 720;
 
-/*Gestion des touches*/
+/* Gestion des touches */
 int leftClic = 0;
+
+/* Stockage résultat collision raquette obstacle*/
+int racketObstacleColliding = 0;
+
+Scene *scene;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -55,6 +60,11 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			case GLFW_KEY_A :
 			case GLFW_KEY_ESCAPE :
 				glfwSetWindowShouldClose(window, GLFW_TRUE);
+				break;
+			case GLFW_KEY_S:
+				if(scene->gameState == MENU){
+					scene->gameState = RUNNING;
+				}
 				break;
 			case GLFW_KEY_L :
 				glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
@@ -115,7 +125,7 @@ void onClic(GLFWwindow* window, int button, int action, int mods){
 
 int main(int argc, char** argv)
 {
-	Scene *scene = createScene();
+	scene = createScene();
 	Racket *racket = createRacket();
 
     double distance = scene->height / (2 * tan(toRad(30.)));
@@ -182,30 +192,30 @@ int main(int argc, char** argv)
 		glLoadIdentity();
 		setCamera();
 
-		/* Initial scenery setup */
-		glTranslatef(0.,0., distance);
+		if(scene->gameState == RUNNING){
+			/* Initial scenery setup */
+			glTranslatef(0., 0., distance);
 
-		glPushMatrix();
-			glTranslatef(0.,0.,10.);
-			drawFrame();
-		glPopMatrix();
+			/* Collisions */
+			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
+			scene->playerMoving = !racketObstacleColliding && leftClic;
+			ballRacketCollision(ball, racket);
+			ballCorridorCollision(ball, scene);
+			ballObstacleCollision(ball, &obstList);
+			ballVoidCollision(ball, scene);
 
-		drawWall(*scene);
-		drawLinesWall(scene, &lineList);
+			/* Update positions */
+			getRacketCoords(window, &racketX, &racketY);
+			updateRacket(racket, racketX, racketY, *scene);
+			updateBall(scene, ball);
 
-		drawObstacle(scene, &obstList, racket);
-
-		drawBall(*ball);
-		updateBall(scene, ball);
-		
-		getRacketCoords(window, &racketX, &racketY);
-		updateRacket(racket, racketX, racketY, *scene);
-		drawRacket(*racket);
-
-		//choc = chocObstacle(obstList, *racket);
-		scene->playerMoving = chocObstacle(&obstList, *racket) && leftClic;
-
-		/* Scene rendering */
+			/* Scene rendering */
+			drawWall(*scene);
+			drawLinesWall(scene, &lineList);
+			updateObstacles(scene, &obstList, racket, racketObstacleColliding);
+			drawBall(*ball);
+			drawRacket(*racket);
+		}
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);

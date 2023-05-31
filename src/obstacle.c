@@ -12,15 +12,34 @@ Obst *createObst(float z, Scene scene, Racket *racket)
 {
     Obst *newObst = (Obst*)malloc(sizeof(Obst));
     newObst->z = z;
-	int maxWidth = (int)scene.width;
+
+	int pos = rand()%3;
+
+	int maxWidth = (int)scene.width-racket->racketSize;
 	int minWidth = (int)scene.width/3;
-	int maxHeight = (int)scene.height;
-	int minHeight = (int)scene.height/3;
-	//newObst->width = rand()%(int)scene.width+1;
-	newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
-	newObst->height = minWidth + rand()%(maxHeight + 1 - minHeight);
-	newObst->x = rand()%(int)scene.width-(int)scene.width/2;
-	newObst->y = rand()%(int)scene.height-(int)scene.height/2;
+	int maxHeight = (int)scene.height-racket->racketSize;
+	int minHeight = (int)scene.height/2;
+	
+	if(pos){
+		newObst->height = scene.height;
+		newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
+		newObst->x = rand()%((int)scene.width+1)-scene.width/2;
+		newObst->y = 0;
+	}else{
+		newObst->width = scene.width;
+		newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
+		newObst->y =rand()%((int)scene.height+1)-scene.height/2;
+		newObst->x = 0;
+	}
+	
+	while(newObst->width>=scene.width-racket->racketSize*2 &&
+	newObst->height>=scene.height-racket->racketSize*2){
+		if(pos){
+			newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
+		}else{
+			newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
+		}
+	}
 
 	newObst->colorR = -z/500+0.2;
 	newObst->colorG = -z/500+0.2;

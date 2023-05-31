@@ -13,17 +13,22 @@ Obst *createObst(float z, Scene scene, Racket *racket)
     Obst *newObst = (Obst*)malloc(sizeof(Obst));
     newObst->z = z;
 
-	int pos = rand()%3;
+	int pos = rand()%2;
+	int placement = rand()%2;
 
 	int maxWidth = (int)scene.width-racket->racketSize;
-	int minWidth = (int)scene.width/3;
+	int minWidth = (int)scene.width/2;
 	int maxHeight = (int)scene.height-racket->racketSize;
 	int minHeight = (int)scene.height/2;
 	
 	if(pos){
-		newObst->height = scene.height;
+		newObst->height = scene.height+1;
 		newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
-		newObst->x = rand()%((int)scene.width+1)-scene.width/2;
+		if(placement){
+			newObst->x = -scene.width/2+newObst->width/2;
+		}else{
+			newObst->x = scene.width/2-newObst->width/2;
+		}
 		newObst->y = 0;
 	}else{
 		newObst->width = scene.width;
@@ -33,9 +38,14 @@ Obst *createObst(float z, Scene scene, Racket *racket)
 	}
 	
 	while(newObst->width>=scene.width-racket->racketSize*2 &&
-	newObst->height>=scene.height-racket->racketSize*2){
+		newObst->height>=scene.height-racket->racketSize*2){
 		if(pos){
 			newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
+			if(placement){
+				newObst->x = -scene.width/2+newObst->width/2;
+			}else{
+				newObst->x = scene.width/2-newObst->width/2;
+			}
 		}else{
 			newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
 		}

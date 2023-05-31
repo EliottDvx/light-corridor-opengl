@@ -13,53 +13,28 @@ Obst *createObst(float z, Scene scene, Racket *racket)
     Obst *newObst = (Obst*)malloc(sizeof(Obst));
     newObst->z = z;
 
-	int posX = rand()%3;
-	int posY = rand()%3;
+	int pos = rand()%3;
 
 	int maxWidth = (int)scene.width-racket->racketSize;
 	int minWidth = (int)scene.width/3;
 	int maxHeight = (int)scene.height-racket->racketSize;
-	int minHeight = (int)scene.height/3;
+	int minHeight = (int)scene.height/2;
 	
-	 switch(posX){
-		case 1:
-			newObst->height = scene.height;
-			newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
-			newObst->x = scene.width/2-newObst->width/2;
-			break;
-		case 2:
-			newObst->height = scene.height;
-			newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
-			newObst->x = -(scene.width/2-newObst->width/2);
-			break;
-		default :
-			newObst->x = 0;
-	}
-
-	switch(posY){
-		case 1:
-			newObst->width = scene.width;
-			newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
-			newObst->y = scene.height/2-newObst->height/2;;
-			break;
-		case 2:
-			newObst->width = scene.width;
-			newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
-			newObst->y = -(scene.height/2-newObst->height/2);
-			break;
-		default :
-			newObst->y = 0;
-	}
-	
-	if(posX == 0 && posY == 0){
-		newObst->width = minWidth + rand()%((int)scene.width + 1 - minWidth);
-		newObst->height = minHeight + rand()%((int)scene.height + 1 - minHeight);
+	if(pos){
+		newObst->height = scene.height;
+		newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
+		newObst->x = rand()%((int)scene.width+1)-scene.width/2;
+		newObst->y = 0;
+	}else{
+		newObst->width = scene.width;
+		newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);
+		newObst->y =rand()%((int)scene.height+1)-scene.height/2;
+		newObst->x = 0;
 	}
 	
 	while(newObst->width>=scene.width-racket->racketSize*2 &&
 	newObst->height>=scene.height-racket->racketSize*2){
-		int choice = rand()%2;
-		if(choice){
+		if(pos){
 			newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
 		}else{
 			newObst->height = minHeight + rand()%(maxHeight + 1 - minHeight);

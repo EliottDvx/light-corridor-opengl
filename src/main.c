@@ -142,7 +142,7 @@ int main(int argc, char** argv)
 		addObst(&obstList, i*20, *scene, racket);
 	}
 	
-	Ball *ball = createBall();
+	//Ball *ball = createBall();
 
 	/* GLFW initialisation */
 	GLFWwindow* window;
@@ -199,21 +199,21 @@ int main(int argc, char** argv)
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
 			scene->playerMoving = !racketObstacleColliding && leftClic;
-			ballRacketCollision(ball, racket);
-			ballCorridorCollision(ball, scene);
-			ballObstacleCollision(ball, &obstList);
-			ballVoidCollision(ball, scene);
+			//ballRacketCollision(ball, racket);
+			// ballCorridorCollision(ball, scene);
+			// ballObstacleCollision(ball, &obstList);
+			// ballVoidCollision(ball, scene);
 
 			/* Update positions */
 			getRacketCoords(window, &racketX, &racketY);
 			updateRacket(racket, racketX, racketY, *scene);
-			updateBall(scene, ball);
+			//updateBall(scene, ball);
 
 			/* Scene rendering */
 			drawWall(*scene);
 			drawLinesWall(scene, &lineList);
 			updateObstacles(scene, &obstList, racket, racketObstacleColliding);
-			drawBall(*ball);
+			//drawBall(*ball);
 			drawRacket(*racket);
 		}
 

@@ -79,7 +79,7 @@ void drawCube(float R, float G, float B){
 	//dessus
 	glPushMatrix();
 		glColor3f(R+0.03, G+0.03, B+0.03);
-		glTranslatef(0,0,0.5);
+		glTranslatef(0,0.5,0);
         glRotatef(90,1,0,0);
 		drawSquare();
 	glPopMatrix();
@@ -87,7 +87,7 @@ void drawCube(float R, float G, float B){
 	//dessous
 	glPushMatrix();
 		glColor3f(R-0.05, G-0.05, B-0.05);
-		glTranslatef(0,0,-0.5);
+		glTranslatef(0,-0.5,0);
         glRotatef(90,1,0,0);
 		drawSquare();
 	glPopMatrix();
@@ -95,7 +95,7 @@ void drawCube(float R, float G, float B){
 	//droite
 	glPushMatrix();
 		glColor3f(R-0.02, G-0.02, B-0.02);
-		glTranslatef(0,0,0.5);
+		glTranslatef(0.5,0,0);
         glRotatef(90,0,1,0);
 		drawSquare();
 	glPopMatrix();
@@ -103,7 +103,7 @@ void drawCube(float R, float G, float B){
 	//gauche
 	glPushMatrix();
 		glColor3f(R-0.02, G-0.02, B-0.02);
-		glTranslatef(0,0,-0.5);
+		glTranslatef(-0.5,0,0);
         glRotatef(90,0,1,0);
 		drawSquare();
 	glPopMatrix();

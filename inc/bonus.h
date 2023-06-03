@@ -28,3 +28,4 @@ void initListBonus(BonusList* list);
 void addBonus(BonusList *list, float z, Scene scene);
 void drawBonus(Bonus *bonus);
 void updateBonus(Scene *scene, BonusList *list);
+void drawCube(Bonus bonus);

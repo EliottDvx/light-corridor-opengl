@@ -30,7 +30,5 @@ void drawSphere();
 
 void drawLine();
 
-void drawCube(float R, float G, float B);
-
 /* Small tools */
 float toRad(float deg);

@@ -12,6 +12,7 @@
 #include "ball.h"
 #include "obstacle.h"
 #include "scene.h"
+#include "bonus.h"
 
 /* Window properties */
 static const char WINDOW_TITLE[] = "TD04 Ex01";
@@ -141,6 +142,10 @@ int main(int argc, char** argv)
 	for(int i = 1; i<=5; i++){
 		addObst(&obstList, i*20, *scene, racket);
 	}
+
+	BonusList bonusList;
+	initListBonus(&bonusList);
+	addBonus(&bonusList, 10, *scene);
 	
 	Ball *ball = createBall();
 
@@ -208,13 +213,14 @@ int main(int argc, char** argv)
 			getRacketCoords(window, &racketX, &racketY);
 			updateRacket(racket, racketX, racketY, *scene);
 			updateBall(scene, ball);
-
+			
 			/* Scene rendering */
 			drawWall(*scene);
 			drawLinesWall(scene, &lineList);
 			updateObstacles(scene, &obstList, racket, racketObstacleColliding);
 			drawBall(*ball);
 			drawRacket(*racket);
+			updateBonus(scene, &bonusList);
 		}
 
 		/* Swap front and back buffers */

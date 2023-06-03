@@ -51,9 +51,6 @@ Obst *createObst(float z, Scene scene, Racket *racket)
 		}
 	}
 
-	newObst->colorR = -z/500+0.2;
-	newObst->colorG = -z/500+0.2;
-	newObst->colorB = -z/500+0.4;
     return newObst;
 }
 
@@ -90,14 +87,14 @@ void retireObst(ObstList* list, Obst *obst)
 
 void drawObstacle(Obst *obst){
 	obst->colorR = -obst->z/500+0.2;
-		obst->colorG = -obst->z/500+0.2;
-		obst->colorB = -obst->z/500+0.4;
-		glPushMatrix();
-			glColor3f(obst->colorR,obst->colorG,obst->colorB);
-			glTranslatef(obst->x, obst->y, obst->z);
-			glScalef(obst->width, obst->height, 0);
-			drawSquare();
-		glPopMatrix();
+	obst->colorG = -obst->z/500+0.2;
+	obst->colorB = -obst->z/500+0.4;
+	glPushMatrix();
+		glColor3f(obst->colorR,obst->colorG,obst->colorB);
+		glTranslatef(obst->x, obst->y, obst->z);
+		glScalef(obst->width, obst->height, 0);
+		drawSquare();
+	glPopMatrix();
 }
 
 void updateObstacles(Scene *scene, ObstList *list, Racket *racket, int racketObstacleColliding){

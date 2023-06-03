@@ -59,3 +59,53 @@ void drawLine() {
 			glVertex3f(-0.5, -0.5, 0.);
 	glEnd();
 }
+
+void drawCube(float R, float G, float B){
+
+	//devant
+	glPushMatrix();
+		glColor3f(R, G, B);
+		glTranslatef(0,0,0.5);
+		drawSquare();
+	glPopMatrix();
+
+	//derriere
+	glPushMatrix();
+		glColor3f(R-0.1, G-0.1, B-0.1);
+		glTranslatef(0,0,-0.5);
+		drawSquare();
+	glPopMatrix();
+
+	//dessus
+	glPushMatrix();
+		glColor3f(R+0.03, G+0.03, B+0.03);
+		glTranslatef(0,0,0.5);
+        glRotatef(90,1,0,0);
+		drawSquare();
+	glPopMatrix();
+
+	//dessous
+	glPushMatrix();
+		glColor3f(R-0.05, G-0.05, B-0.05);
+		glTranslatef(0,0,-0.5);
+        glRotatef(90,1,0,0);
+		drawSquare();
+	glPopMatrix();
+
+	//droite
+	glPushMatrix();
+		glColor3f(R-0.02, G-0.02, B-0.02);
+		glTranslatef(0,0,0.5);
+        glRotatef(90,0,1,0);
+		drawSquare();
+	glPopMatrix();
+
+	//gauche
+	glPushMatrix();
+		glColor3f(R-0.02, G-0.02, B-0.02);
+		glTranslatef(0,0,-0.5);
+        glRotatef(90,0,1,0);
+		drawSquare();
+	glPopMatrix();
+}
+

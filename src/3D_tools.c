@@ -17,7 +17,6 @@ float toRad(float deg) {
 	return deg*M_PI/180.0f;
 }
 
-
 void drawSquare() {
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex3f(-0.5,-0.5,0.0);
@@ -59,4 +58,3 @@ void drawLine() {
 			glVertex3f(-0.5, -0.5, 0.);
 	glEnd();
 }
-

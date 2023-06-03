@@ -9,8 +9,8 @@
 #include "racket.h"
 
 typedef struct Bonus{
-    int height;
-    int width;
+    float height;
+    float width;
     float z;
     int y;
     int x;

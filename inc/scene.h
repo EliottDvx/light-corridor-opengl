@@ -26,5 +26,4 @@ Scene *createScene();
 
 void drawLives(Scene *scene);
 
-void startGame(Scene scene);
-void gameOver(Scene scene);
+void addTexture(Scene scene, char adresse[]);

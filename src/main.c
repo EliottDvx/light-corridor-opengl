@@ -37,6 +37,9 @@ Scene *scene;
 
 Ball *ball;
 
+char start[] = "img/start.png";
+char over[] = "img/gameover.png";
+
 /* Error handling function */
 void onError(int error, const char* description)
 {
@@ -210,11 +213,11 @@ int main(int argc, char** argv)
 		glTranslatef(0., 0., distance);
 
 		if(scene->gameState == MENU){
-			startGame(*scene);
+			addTexture(*scene, start);
 		};
 
 		if(scene->gameState == OVER){
-			gameOver(*scene);
+			addTexture(*scene, over);
 		};
 
 		if(scene->gameState == RUNNING){

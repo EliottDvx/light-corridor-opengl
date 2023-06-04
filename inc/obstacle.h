@@ -9,11 +9,11 @@
 #include "racket.h"
 
 typedef struct Obst{
-    int height;
-    int width;
+    float height;
+    float width;
     float z;
-    int y;
-    int x;
+    float y;
+    float x;
     struct Obst* next;
     float colorR;
     float colorG;

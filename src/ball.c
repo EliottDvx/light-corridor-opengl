@@ -128,3 +128,14 @@ void ballVoidCollision(Ball *ball, Scene* scene){
         }
     }
 }
+
+void ballEndWallCollision(Ball *ball, EndWall endWall, Scene *scene){
+    if(ball->z >= endWall.z){
+        if(endWall.winScreen){
+            scene->gameState = ENDING;
+        }
+        ball->vz = -fabs(ball->vz);
+}
+    }
+
+    

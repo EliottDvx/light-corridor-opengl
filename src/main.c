@@ -15,7 +15,7 @@
 #include "bonus.h"
 
 /* Window properties */
-static const char WINDOW_TITLE[] = "TD04 Ex01";
+static const char WINDOW_TITLE[] = "Light Corridor";
 static float aspectRatio = 1.0;
 
 /* Minimal time wanted between two images */
@@ -203,7 +203,7 @@ int main(int argc, char** argv)
 
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
-			scene->playerMoving = !racketObstacleColliding && leftClic;
+			scene->playerMoving = !racketObstacleColliding && leftClic && ball->state == MOVING;
 			ballRacketCollision(ball, racket);
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);
@@ -212,7 +212,7 @@ int main(int argc, char** argv)
 			/* Update positions */
 			getRacketCoords(window, &racketX, &racketY);
 			updateRacket(racket, racketX, racketY, *scene);
-			updateBall(scene, ball);
+			updateBall(scene, ball, racket);
 			
 			/* Scene rendering */
 			drawWall(*scene);

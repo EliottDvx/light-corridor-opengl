@@ -9,6 +9,10 @@
 #include "racket.h"
 #include "obstacle.h"
 
+typedef enum {
+    STICKY,
+    MOVING
+} BallState;
 typedef struct Ball{
     double size;
     double x;
@@ -18,16 +22,19 @@ typedef struct Ball{
     double vy;
     double vz;
     double maxSpeed;
+    BallState state;
 }Ball;
 
 Ball *createBall();
 
 void drawBall();
 
-void updateBall(Scene *scene, Ball *ball);
+void updateBall(Scene *scene, Ball *ball, Racket *racket);
 
 void ballRacketCollision(Ball *ball, Racket *racket);
 
 void ballCorridorCollision(Ball *ball, Scene *scene);
 
 void ballObstacleCollision(Ball *ball, ObstList *list);
+
+void ballVoidCollision(Ball *ball, Scene* scene);

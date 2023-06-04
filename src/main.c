@@ -219,7 +219,7 @@ int main(int argc, char** argv)
 		if(scene->gameState == RUNNING){
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
-			scene->playerMoving = !racketObstacleColliding && leftClic && ball->state == MOVING;
+			scene->playerMoving = !racketObstacleColliding && leftClic && (ball->state == MOVING || ball->state == MOVINGSTICKY);
 			ballRacketCollision(ball, racket);
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);

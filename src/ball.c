@@ -17,6 +17,8 @@ Ball *createBall(){
     ball->maxSpeed = .2;
     ball->state = STICKY;
     return ball;
+    ball->xStickyOffset = 0;
+    ball->yStickyOffset = 0;
 }
 
 void drawBall(Ball ball){
@@ -29,7 +31,7 @@ void drawBall(Ball ball){
 }
 
 void updateBall(Scene *scene, Ball *ball, Racket *racket){
-    if(ball->state == MOVING){
+    if(ball->state == MOVING || ball->state == MOVINGSTICKY){
         ball->x += ball->vx;
         ball->y += ball->vy;
         ball->z += ball->vz;
@@ -39,8 +41,8 @@ void updateBall(Scene *scene, Ball *ball, Racket *racket){
         }
     }
     else if(ball->state == STICKY){
-        ball->x = racket->x;
-        ball->y = racket->y;
+        ball->x = racket->x + ball->xStickyOffset;
+        ball->y = racket->y + ball->yStickyOffset;
         ball->z = ball->size;
     }
 }
@@ -54,6 +56,12 @@ void ballRacketCollision(Ball *ball, Racket *racket){
 
         float relativePosX = (ball->x - racket->x) / (racket->racketSize/2);
         float relativePosY = (ball->y - racket->y) / (racket->racketSize/2);
+
+        if(ball->state == MOVINGSTICKY){
+            ball->xStickyOffset = relativePosX;
+            ball->yStickyOffset = relativePosY;
+            ball->state = STICKY;
+        }
 
         int ponderation = 6;
         double newVx = relativePosX / ponderation;
@@ -105,6 +113,8 @@ void ballObstacleCollision(Ball *ball, ObstList *list){
 
 void ballVoidCollision(Ball *ball, Scene* scene){
     if(ball->z <= 0 - ball->size){
+        ball->xStickyOffset = 0;
+        ball->yStickyOffset = 0;
         ball->state = STICKY;
         scene->lives--;
         if(scene->lives <= 0){

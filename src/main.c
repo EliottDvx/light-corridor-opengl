@@ -236,7 +236,7 @@ int main(int argc, char** argv)
 			drawLinesWall(scene, &lineList);
 			updateObstacles(scene, &obstList, racket);
 			drawBall(*ball);
-			drawRacket(*racket);
+			drawRacket(*racket, ball->state);
 			updateBonus(scene, &bonusList);
 			drawLives(scene);
 		}

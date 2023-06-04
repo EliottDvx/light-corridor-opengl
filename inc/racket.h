@@ -16,5 +16,5 @@ typedef struct Racket{
 
 Racket *createRacket();
 void updateRacket(Racket *racket, double x, double y, Scene scene);
-void drawRacket(Racket racket);
+void drawRacket(Racket racket, BallState state);
 void getRacketCoords(GLFWwindow* window, double *x, double *y);

@@ -145,7 +145,7 @@ int main(int argc, char** argv)
 
 	BonusList bonusList;
 	initListBonus(&bonusList);
-	addBonus(&bonusList, 190, *scene);
+	addBonus(&bonusList, 10, *scene);
 	
 	Ball *ball = createBall();
 
@@ -180,6 +180,9 @@ int main(int argc, char** argv)
 
 	glPointSize(5.0);
 	glEnable(GL_DEPTH_TEST);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))

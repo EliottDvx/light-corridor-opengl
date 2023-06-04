@@ -13,8 +13,8 @@ Ball *createBall(){
     ball->z = 10;
     ball->vx = 0;
     ball->vy = 0;
-    ball->vz = -.3;
-    ball->maxSpeed = .3;
+    ball->vz = -.2;
+    ball->maxSpeed = .2;
     return ball;
 }
 

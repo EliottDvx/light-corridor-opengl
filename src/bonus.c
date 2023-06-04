@@ -57,10 +57,13 @@ void drawBonus(Bonus *bonus){
 	bonus->colorR = -bonus->z/500+0.2;
     bonus->colorG = -bonus->z/500+0.4;
     bonus->colorB = -bonus->z/500+0.4;
+
+	float deg = glfwGetTime()*30;
     
     glPushMatrix();
         glTranslatef(bonus->x, bonus->y, bonus->z);
-        glRotatef(45,1,1,1);
+		glRotatef(deg,0,1,0);
+		glRotatef(-45,1,1,1);
         drawCube(*bonus);
     glPopMatrix();
 }
@@ -100,7 +103,7 @@ void drawCube(Bonus bonus){
 
 	//devant
 	glPushMatrix();
-		glColor3f(R, G, B);
+		glColor4f(R, G, B, 0.75);
 		glTranslatef(0,0,H/2.);
         glScalef(W,H,0);
 		drawSquare();
@@ -108,7 +111,7 @@ void drawCube(Bonus bonus){
 
 	//derriere
 	glPushMatrix();
-		glColor3f(R-0.1, G-0.1, B-0.1);
+		glColor4f(R-0.1, G-0.1, B-0.1, 0.75);
 		glTranslatef(0,0,-H/2.);
         glScalef(W,H,0);
 		drawSquare();
@@ -116,7 +119,7 @@ void drawCube(Bonus bonus){
 
 	//dessus
 	glPushMatrix();
-		glColor3f(R+0.03, G+0.03, B+0.03);
+		glColor4f(R+0.05, G+0.05, B+0.05, 0.75);
 		glTranslatef(0,H/2.,0);
         glRotatef(90,1,0,0);
         glScalef(W,H,0);
@@ -125,7 +128,7 @@ void drawCube(Bonus bonus){
 
 	//dessous
 	glPushMatrix();
-		glColor3f(R-0.05, G-0.05, B-0.05);
+		glColor4f(R-0.08, G-0.08, B-0.08, 0.75);
 		glTranslatef(0,-H/2.,0);
         glRotatef(90,1,0,0);
         glScalef(W,H,0);
@@ -134,7 +137,7 @@ void drawCube(Bonus bonus){
 
 	//droite
 	glPushMatrix();
-		glColor3f(R-0.02, G-0.02, B-0.02);
+		glColor4f(R-0.05, G-0.05, B-0.05, 0.75);
 		glTranslatef(W/2.,0,0);
         glRotatef(90,0,1,0);
         glScalef(H,H,0);
@@ -143,7 +146,7 @@ void drawCube(Bonus bonus){
 
 	//gauche
 	glPushMatrix();
-		glColor3f(R-0.02, G-0.02, B-0.02);
+		glColor4f(R-0.04, G-0.04, B-0.04, 0.75);
 		glTranslatef(-W/2.,0,0);
         glRotatef(90,0,1,0);
         glScalef(H,H,0);

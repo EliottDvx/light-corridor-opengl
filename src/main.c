@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-
+#include <time.h>
 #include "3D_tools.h"
 #include "corridor.h"
 #include "racket.h"
@@ -132,6 +132,7 @@ void onClic(GLFWwindow* window, int button, int action, int mods){
 
 int main(int argc, char** argv)
 {
+	srand ( time(NULL) );
 	scene = createScene();
 	Racket *racket = createRacket();
 	EndWall *endWall = createEndWall(50);
@@ -249,10 +250,9 @@ int main(int argc, char** argv)
 			/* Scene rendering */
 			drawWall(*scene);
 			drawLinesWall(scene, &lineList);
-			updateObstacles(scene, &obstList, racket);
+			updateObstacles(scene, &obstList, racket); // Nécessaire à cet emplacement pour la collision racket obstacle
 			drawBall(*ball);
 			drawRacket(*racket, ball->state);
-			updateBonus(scene, &bonusList);
 			drawLives(scene);
 			drawEndWall(*scene, endWall);
 		}

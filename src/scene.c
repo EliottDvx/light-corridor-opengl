@@ -28,3 +28,19 @@ void drawLives(Scene *scene) {
         }
 	glPopMatrix();
 }
+
+void startGame(Scene scene){
+    glPushMatrix();
+        glColor3f(0,0,1);
+		glScalef(scene.width, scene.height, 0);
+		drawSquare();
+	glPopMatrix();
+}
+
+void gameOver(Scene scene){
+    glPushMatrix();
+        glColor3f(1,0,0);
+		glScalef(scene.width, scene.height, 0);
+		drawSquare();
+	glPopMatrix();
+}

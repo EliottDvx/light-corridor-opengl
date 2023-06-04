@@ -205,10 +205,18 @@ int main(int argc, char** argv)
 		glLoadIdentity();
 		setCamera();
 
-		if(scene->gameState == RUNNING){
-			/* Initial scenery setup */
-			glTranslatef(0., 0., distance);
+		/* Initial scenery setup */
+		glTranslatef(0., 0., distance);
 
+		if(scene->gameState == MENU){
+			startGame(*scene);
+		};
+
+		if(scene->gameState == OVER){
+			gameOver(*scene);
+		};
+
+		if(scene->gameState == RUNNING){
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
 			scene->playerMoving = !racketObstacleColliding && leftClic && ball->state == MOVING;

@@ -22,7 +22,7 @@ Obst *createObst(float z, Scene scene, Racket *racket)
 	int minHeight = (int)scene.height/2;
 	
 	if(pos){
-		newObst->height = scene.height+1;
+		newObst->height = scene.height;
 		newObst->width = minWidth + rand()%(maxWidth + 1 - minWidth);
 		if(placement){
 			newObst->x = -scene.width/2+newObst->width/2;

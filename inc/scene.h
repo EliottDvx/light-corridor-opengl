@@ -25,3 +25,6 @@ typedef struct Scene{
 Scene *createScene();
 
 void drawLives(Scene *scene);
+
+void startGame(Scene scene);
+void gameOver(Scene scene);

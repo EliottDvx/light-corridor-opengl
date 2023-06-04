@@ -100,7 +100,7 @@ void drawBonus(Bonus *bonus){
     glPushMatrix();
         glTranslatef(bonus->x, bonus->y, bonus->z);
 		glRotatef(deg,0,1,0);
-		glRotatef(-45,1,1,1);
+		glRotatef(deg*2,1,0,0);
         drawCube(*bonus);
     glPopMatrix();
 }

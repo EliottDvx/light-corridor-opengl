@@ -36,3 +36,5 @@ void ballCorridorCollision(Ball *ball, Scene *scene);
 void ballObstacleCollision(Ball *ball, ObstList *list);
 
 void ballVoidCollision(Ball *ball, Scene* scene);
+
+void ballEndWallCollision(Ball *ball, EndWall endWall, Scene *scene);

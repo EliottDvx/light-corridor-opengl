@@ -36,6 +36,7 @@ Ball *ball;
 
 char start[] = "img/start.png";
 char over[] = "img/gameover.png";
+char ending[] = "img/congratulation.png";
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -133,6 +134,7 @@ int main(int argc, char** argv)
 {
 	scene = createScene();
 	Racket *racket = createRacket();
+	EndWall *endWall = createEndWall(50);
 
     double distance = scene->height / (2 * tan(toRad(30.)));
 
@@ -217,6 +219,10 @@ int main(int argc, char** argv)
 			addTexture(*scene, over);
 		};
 
+		if(scene->gameState == ENDING){
+			addTexture(*scene, ending);
+		};
+
 		if(scene->gameState == RUNNING){
 			/* Collisions */
 			scene->playerMoving = !racketObstacleCollision(&obstList, *racket) && leftClic && (ball->state == MOVING || ball->state == MOVINGSTICKY);
@@ -226,10 +232,19 @@ int main(int argc, char** argv)
 			ballVoidCollision(ball, scene);
 			racketBonusCollision(&bonusList, *racket, scene, ball);
 
+			//advancement
+			if(scene->playerMoving){
+				scene->advancement += scene->movingSpeed;
+			}
+			
 			/* Update positions */
 			getRacketCoords(window, &racketX, &racketY);
 			updateRacket(racket, racketX, racketY, *scene);
 			updateBall(scene, ball, racket);
+			updateBonus(scene, &bonusList);
+			updateEndWall(*scene, endWall);
+
+			ballEndWallCollision(ball, *endWall, scene);
 			
 			/* Scene rendering */
 			drawWall(*scene);
@@ -239,6 +254,7 @@ int main(int argc, char** argv)
 			drawRacket(*racket, ball->state);
 			updateBonus(scene, &bonusList);
 			drawLives(scene);
+			drawEndWall(*scene, endWall);
 		}
 
 		/* Swap front and back buffers */

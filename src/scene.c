@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "3D_tools.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -10,6 +11,7 @@ Scene *createScene(){
     scene->movingSpeed = .15;
     scene->gameState = MENU;
     scene->lives = 3;
+    scene->advancement = 0;
     return scene;
 }
 
@@ -75,4 +77,38 @@ void addTexture(Scene scene, char adresse[]){
     glDisable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDeleteTextures(1, &texture);
+}
+
+EndWall *createEndWall(float z){
+    EndWall *endWall = (EndWall*)malloc(sizeof(EndWall));
+
+    endWall->z = z;
+
+    endWall->R = 0;
+    endWall->G = 0;
+    endWall->B = 0;
+
+    endWall->winScreen = 0;
+
+    return endWall;
+}
+
+void drawEndWall(Scene scene, EndWall *endWall){
+    glPushMatrix();
+		glColor3f(endWall->R, endWall->G, endWall->B);
+		glTranslatef(0, 0, endWall->z);
+		glScalef(scene.width, scene.height, 0);
+		drawSquare();
+	glPopMatrix();
+}
+
+void updateEndWall(Scene scene, EndWall *endWall){
+
+    if(scene.advancement >= 400 && scene.playerMoving){
+        endWall->winScreen = 1;
+        endWall->z -= scene.movingSpeed;
+        endWall->R = -endWall->z/100+0.3;
+        endWall->G = -endWall->z/100+0.6;
+        endWall->B = -endWall->z/100+0.6;
+    }
 }

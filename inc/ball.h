@@ -9,12 +9,6 @@
 #include "racket.h"
 #include "obstacle.h"
 
-typedef enum {
-    STICKY,
-    MOVING,
-    MOVINGSTICKY
-} BallState;
-
 typedef struct Ball{
     double size;
     double x;

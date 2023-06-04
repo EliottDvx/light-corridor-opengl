@@ -26,13 +26,20 @@ void updateRacket(Racket *racket, double x, double y, Scene scene){
 
 }
 
-void drawRacket(Racket racket){
+void drawRacket(Racket racket, BallState state){
     float racketSize = racket.racketSize;
 
     glPushMatrix();
         glTranslatef(racket.x, racket.y, -.01);
         glBegin(GL_LINE_LOOP);
-            glColor3f(1, 1, 1);
+
+            if(state == MOVINGSTICKY)
+                glColor3f(.7, .7, .2);
+            else if(state == STICKY)
+                glColor3f(.3, .6, .6);
+            else if(state == MOVING){
+                glColor3f(1, 1, 1);
+            }
 
             glVertex3f(-racketSize/2., -racketSize/2., 0);
             glVertex3f(-racketSize/2., racketSize/2., 0);

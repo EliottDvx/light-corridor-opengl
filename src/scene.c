@@ -104,7 +104,7 @@ void drawEndWall(Scene scene, EndWall *endWall){
 
 void updateEndWall(Scene scene, EndWall *endWall){
 
-    if(scene.advancement >= 400 && scene.playerMoving){
+    if(scene.advancement >= 390 && scene.playerMoving){
         endWall->winScreen = 1;
         endWall->z -= scene.movingSpeed;
         endWall->R = -endWall->z/100+0.3;

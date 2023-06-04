@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 
 	BonusList bonusList;
 	initListBonus(&bonusList);
-	addBonus(&bonusList, 110, *scene, SETSTICKY);
+	addBonus(&bonusList, 115, *scene, SETSTICKY);
 	
 	ball = createBall();
 

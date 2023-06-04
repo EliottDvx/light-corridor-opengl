@@ -9,16 +9,19 @@
 extern unsigned int WINDOW_WIDTH;
 extern unsigned int WINDOW_HEIGHT;
 
-#define MENU 0
-#define RUNNING 1
-#define OVER 2
+typedef enum {
+    MENU, RUNNING, OVER
+} GameState;
 
 typedef struct Scene{
     float height;
     float width;
     int playerMoving;
     float movingSpeed;
-    int gameState;
+    GameState gameState;
+    int lives;
 }Scene;
 
 Scene *createScene();
+
+void drawLives(Scene *scene);

@@ -15,6 +15,7 @@ Ball *createBall(){
     ball->vy = 0;
     ball->vz = -.2;
     ball->maxSpeed = .2;
+    ball->state = STICKY;
     return ball;
 }
 
@@ -27,13 +28,20 @@ void drawBall(Ball ball){
     glPopMatrix();
 }
 
-void updateBall(Scene *scene, Ball *ball){
-    ball->x += ball->vx;
-    ball->y += ball->vy;
-    ball->z += ball->vz;
+void updateBall(Scene *scene, Ball *ball, Racket *racket){
+    if(ball->state == MOVING){
+        ball->x += ball->vx;
+        ball->y += ball->vy;
+        ball->z += ball->vz;
 
-    if(scene->playerMoving){
-        ball->z -= scene->movingSpeed;
+        if(scene->playerMoving){
+            ball->z -= scene->movingSpeed;
+        }
+    }
+    else if(ball->state == STICKY){
+        ball->x = racket->x;
+        ball->y = racket->y;
+        ball->z = ball->size;
     }
 }
 
@@ -78,11 +86,14 @@ void ballCorridorCollision(Ball *ball, Scene *scene){
 
 void ballObstacleCollision(Ball *ball, ObstList *list){
     Obst *obst = list->first;
-    float wallThickness = .8;
+    float wallThickness = .5;
 
     for (obst = list->first; obst != NULL;) {
-        if(ball->z + ball->size/2 >= obst->z - wallThickness/2 && ball->z - ball->size/2 <= obst->z + wallThickness/2){
-            if(obst->x - obst->width/2 - ball->size <= ball->x && ball->x <= obst->x + obst->width/2 + ball->size && ball->y >= obst->y - obst->height/2 - ball->size && ball->y <= obst->y + obst->height/2 + ball->size){
+        if(ball->z + ball->size/2 >= obst->z && ball->z - ball->size/2 <= obst->z + wallThickness){
+            if(ball->x >= obst->x - obst->width/2 - ball->size &&
+               ball->x <= obst->x + obst->width/2 + ball->size &&
+               ball->y >= obst->y - obst->height/2 - ball->size &&
+               ball->y <= obst->y + obst->height/2 + ball->size){
                 ball->vz = -ball->vz;
             }
         }
@@ -93,6 +104,10 @@ void ballObstacleCollision(Ball *ball, ObstList *list){
 
 void ballVoidCollision(Ball *ball, Scene* scene){
     if(ball->z <= 0 - ball->size){
-        scene->gameState = OVER;
+        ball->state = STICKY;
+        scene->lives--;
+        if(scene->lives <= 0){
+            scene->gameState = OVER;
+        }
     }
 }

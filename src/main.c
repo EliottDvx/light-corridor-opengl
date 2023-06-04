@@ -15,7 +15,7 @@
 #include "bonus.h"
 
 /* Window properties */
-static const char WINDOW_TITLE[] = "TD04 Ex01";
+static const char WINDOW_TITLE[] = "Light Corridor";
 static float aspectRatio = 1.0;
 
 /* Minimal time wanted between two images */
@@ -34,6 +34,8 @@ int leftClic = 0;
 int racketObstacleColliding = 0;
 
 Scene *scene;
+
+Ball *ball;
 
 /* Error handling function */
 void onError(int error, const char* description)
@@ -110,6 +112,9 @@ void onClic(GLFWwindow* window, int button, int action, int mods){
 		switch(button){
 			case GLFW_MOUSE_BUTTON_LEFT :
 				leftClic = 1;
+				if(ball->state == STICKY){
+					ball->state = MOVING;
+				}
 				break;
 			default: fprintf(stdout,"Touche non gérée (%d)\n",button);
 		}
@@ -147,7 +152,7 @@ int main(int argc, char** argv)
 	initListBonus(&bonusList);
 	addBonus(&bonusList, 10, *scene);
 	
-	Ball *ball = createBall();
+	ball = createBall();
 
 	/* GLFW initialisation */
 	GLFWwindow* window;
@@ -206,7 +211,7 @@ int main(int argc, char** argv)
 
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
-			scene->playerMoving = !racketObstacleColliding && leftClic;
+			scene->playerMoving = !racketObstacleColliding && leftClic && ball->state == MOVING;
 			ballRacketCollision(ball, racket);
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);
@@ -215,7 +220,7 @@ int main(int argc, char** argv)
 			/* Update positions */
 			getRacketCoords(window, &racketX, &racketY);
 			updateRacket(racket, racketX, racketY, *scene);
-			updateBall(scene, ball);
+			updateBall(scene, ball, racket);
 			
 			/* Scene rendering */
 			drawWall(*scene);
@@ -224,6 +229,7 @@ int main(int argc, char** argv)
 			drawBall(*ball);
 			drawRacket(*racket);
 			updateBonus(scene, &bonusList);
+			drawLives(scene);
 		}
 
 		/* Swap front and back buffers */

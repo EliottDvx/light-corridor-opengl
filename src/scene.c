@@ -1,4 +1,6 @@
 #include "scene.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 Scene *createScene(){
     Scene *scene = (Scene*)malloc(sizeof(Scene));
@@ -29,18 +31,48 @@ void drawLives(Scene *scene) {
 	glPopMatrix();
 }
 
-void startGame(Scene scene){
-    glPushMatrix();
-        glColor3f(0,0,1);
-		glScalef(scene.width, scene.height, 0);
-		drawSquare();
-	glPopMatrix();
-}
+void addTexture(Scene scene, char adresse[]){
+    int x, y, n;
+    unsigned char* image;
+    GLuint texture;
 
-void gameOver(Scene scene){
+    glColor3f(1,1,1);
+
+	glEnable(GL_TEXTURE_2D);
+
+    image = stbi_load(adresse, &x, &y, &n, 0);
+
+    glGenTextures(1, &texture);
+
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+
     glPushMatrix();
-        glColor3f(1,0,0);
 		glScalef(scene.width, scene.height, 0);
-		drawSquare();
+        
+		glBegin(GL_TRIANGLE_FAN);
+
+            glTexCoord2f(1, 1);
+            glVertex3f(-0.5,-0.5,0.0);
+
+            glTexCoord2f(0, 1);
+            glVertex3f(0.5,-0.5,0.0);
+
+            glTexCoord2f(0, 0);
+            glVertex3f(0.5,0.5,0.0);
+
+            glTexCoord2f(1, 0);
+            glVertex3f(-0.5,0.5,0.0);
+
+	    glEnd();
+
 	glPopMatrix();
+
+    stbi_image_free(image);
+    glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDeleteTextures(1, &texture);
 }

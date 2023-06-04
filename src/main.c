@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 
 	BonusList bonusList;
 	initListBonus(&bonusList);
-	addBonus(&bonusList, 10, *scene);
+	addBonus(&bonusList, 110, *scene, SETSTICKY);
 	
 	ball = createBall();
 
@@ -224,6 +224,7 @@ int main(int argc, char** argv)
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);
 			ballVoidCollision(ball, scene);
+			racketBonusCollision(&bonusList, *racket, scene, ball);
 
 			/* Update positions */
 			getRacketCoords(window, &racketX, &racketY);

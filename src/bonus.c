@@ -2,24 +2,53 @@
 #include "3D_tools.h"
 #include "scene.h"
 #include "racket.h"
+#include "ball.h"
 
 void initListBonus(BonusList* list)
 {
     list->first = NULL;
 }
 
-Bonus *createBonus(float z, Scene scene)
+Bonus *createBonus(float z, Scene scene, BonusType type)
 {
     Bonus *newBonus = (Bonus*)malloc(sizeof(Bonus));
     newBonus->z = z;
-    newBonus->y = 0;
 	
-    newBonus->height = 1.5;
-    newBonus->width = 1.5;
+    newBonus->height = .8;
+    newBonus->width = .8;
 
     newBonus->x = rand()%((int)scene.width/2 - (int)scene.width/4);
+	newBonus->y = rand()%((int)scene.height/2 - (int)scene.height/4);
+
+	newBonus->type = type;
 
     return newBonus;
+}
+
+void racketBonusCollision(BonusList *list, Racket racket, Scene	*scene, Ball *ball){
+    Bonus* bonus;
+    float size = racket.racketSize/2.;
+    
+    for (bonus = list->first; bonus != NULL; bonus = bonus->next) {
+        
+		if(bonus->z <= bonus->width/2){
+            if(racket.x - size < bonus->x + bonus->width/2. &&
+                racket.x + size > bonus->x - bonus->width/2. &&
+                racket.y - size < bonus->y + bonus->height/2. &&
+                racket.y + size > bonus->y - bonus->height/2.){
+					if(bonus->type == SETSTICKY){
+						ball->state = STICKY;
+					}
+					else if(bonus->type == LIVEUP){
+						scene->lives++;
+					}
+					BonusType type = bonus->type;
+					type = (BonusType)((type + 1) % (LIVEUP + 1));
+					retireBonus(list, bonus);
+					addBonus(list, (rand()%5 * 20) + 100, *scene, type);
+            }
+        }
+	}
 }
 
 void destroyBonus(Bonus **ppBonus) {
@@ -27,9 +56,9 @@ void destroyBonus(Bonus **ppBonus) {
     *ppBonus = NULL;
 }
 
-void addBonus(BonusList *list, float z, Scene scene)
+void addBonus(BonusList *list, float z, Scene scene, BonusType type)
 {
-    Bonus *newBonus = createBonus(z, scene);
+    Bonus *newBonus = createBonus(z, scene, type);
     newBonus->next = list->first;
     list->first = newBonus;
 }
@@ -54,9 +83,17 @@ void retireBonus(BonusList* list, Bonus *bonus)
 }
 
 void drawBonus(Bonus *bonus){
-	bonus->colorR = -bonus->z/500+0.2;
-    bonus->colorG = -bonus->z/500+0.4;
-    bonus->colorB = -bonus->z/500+0.4;
+
+	//Choisi la couleur en fonction du type
+	if(bonus->type == SETSTICKY){
+		bonus->colorR = 0.7;
+		bonus->colorG = 0.7;
+		bonus->colorB = 0.2;
+	}else if(bonus->type == LIVEUP){
+		bonus->colorR = 0.2;
+		bonus->colorG = 0.8;
+		bonus->colorB = 0.2;
+	}
 
 	float deg = glfwGetTime()*30;
     
@@ -76,10 +113,14 @@ void updateBonus(Scene *scene, BonusList *list){
 		drawBonus(bonus);
 		if(bonus->z <= 0){
         	Bonus *nextBonus = bonus->next;
+
+			BonusType type = bonus->type;
+			type = (BonusType)((type + 1) % (LIVEUP + 1));
+
 			retireBonus(list, bonus);
-            if(rand()%2){
-                addBonus(list, 100, *scene);
-            }
+
+            addBonus(list, (rand()%5 * 20) + 100, *scene, type);
+            
 			bonus = nextBonus;
 		}
 		else{

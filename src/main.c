@@ -175,6 +175,7 @@ int main(int argc, char** argv)
 
 	glfwSetWindowAspectRatio(window, 16, 9);
 	glfwSetWindowSizeLimits(window, 640, 360, GLFW_DONT_CARE, GLFW_DONT_CARE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 
 	glfwSetWindowSizeCallback(window,onWindowResized);

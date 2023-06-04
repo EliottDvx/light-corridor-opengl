@@ -13,6 +13,12 @@ typedef enum {
     MENU, RUNNING, OVER, ENDING
 } GameState;
 
+typedef enum {
+    STICKY,
+    MOVING,
+    MOVINGSTICKY
+} BallState;
+
 typedef struct Scene{
     float height;
     float width;

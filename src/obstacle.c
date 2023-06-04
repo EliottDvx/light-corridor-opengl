@@ -97,13 +97,13 @@ void drawObstacle(Obst *obst){
 	glPopMatrix();
 }
 
-void updateObstacles(Scene *scene, ObstList *list, Racket *racket, int racketObstacleColliding){
+void updateObstacles(Scene *scene, ObstList *list, Racket *racket){
 	Obst *obst = list->first;
 	glLineWidth(2.);
 
 	for (obst = list->first; obst != NULL;) {
 		drawObstacle(obst);
-		if(obst->z <= 0 && !racketObstacleColliding){
+		if(obst->z <= 0 && scene->playerMoving){
         	Obst *nextObst = obst->next;
 			retireObst(list, obst);
 			addObst(list, 100, *scene, racket);
@@ -113,7 +113,9 @@ void updateObstacles(Scene *scene, ObstList *list, Racket *racket, int racketObs
 			if(scene->playerMoving){
 				obst->z -= scene->movingSpeed;
 			}
-			
+			if(obst->z <= 0){
+				obst->z = 0;
+			}
 			obst = obst->next;
 		}
 	}
@@ -130,9 +132,9 @@ int racketObstacleCollision(ObstList *list, Racket racket){
                 racket.x + size > obst->x - obst->width/2. &&
                 racket.y - size < obst->y + obst->height/2. &&
                 racket.y + size > obst->y - obst->height/2.){
-                    return 0;
+                    return 1;
             }
         }
 	}
-    return 1;
+    return 0;
 }

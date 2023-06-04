@@ -175,6 +175,7 @@ int main(int argc, char** argv)
 
 	glfwSetWindowAspectRatio(window, 16, 9);
 	glfwSetWindowSizeLimits(window, 640, 360, GLFW_DONT_CARE, GLFW_DONT_CARE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 
 	glfwSetWindowSizeCallback(window,onWindowResized);
@@ -219,7 +220,7 @@ int main(int argc, char** argv)
 		if(scene->gameState == RUNNING){
 			/* Collisions */
 			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
-			scene->playerMoving = !racketObstacleColliding && leftClic && ball->state == MOVING;
+			scene->playerMoving = !racketObstacleColliding && leftClic && (ball->state == MOVING || ball->state == MOVINGSTICKY);
 			ballRacketCollision(ball, racket);
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);

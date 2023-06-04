@@ -11,7 +11,8 @@
 
 typedef enum {
     STICKY,
-    MOVING
+    MOVING,
+    MOVINGSTICKY
 } BallState;
 
 typedef struct Ball{
@@ -24,6 +25,8 @@ typedef struct Ball{
     double vz;
     double maxSpeed;
     BallState state;
+    double xStickyOffset;
+    double yStickyOffset;
 }Ball;
 
 Ball *createBall();

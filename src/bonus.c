@@ -37,7 +37,7 @@ void racketBonusCollision(BonusList *list, Racket racket, Scene	*scene, Ball *ba
                 racket.y - size < bonus->y + bonus->height/2. &&
                 racket.y + size > bonus->y - bonus->height/2.){
 					if(bonus->type == SETSTICKY){
-						ball->state = STICKY;
+						ball->state = MOVINGSTICKY;
 					}
 					else if(bonus->type == LIVEUP){
 						scene->lives++;
@@ -100,7 +100,7 @@ void drawBonus(Bonus *bonus){
     glPushMatrix();
         glTranslatef(bonus->x, bonus->y, bonus->z);
 		glRotatef(deg,0,1,0);
-		glRotatef(-45,1,1,1);
+		glRotatef(deg*2,1,0,0);
         drawCube(*bonus);
     glPopMatrix();
 }

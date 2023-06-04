@@ -30,9 +30,6 @@ unsigned int WINDOW_HEIGHT = 720;
 /* Gestion des touches */
 int leftClic = 0;
 
-/* Stockage résultat collision raquette obstacle*/
-int racketObstacleColliding = 0;
-
 Scene *scene;
 
 Ball *ball;
@@ -222,8 +219,7 @@ int main(int argc, char** argv)
 
 		if(scene->gameState == RUNNING){
 			/* Collisions */
-			racketObstacleColliding = !racketObstacleCollision(&obstList, *racket);
-			scene->playerMoving = !racketObstacleColliding && leftClic && (ball->state == MOVING || ball->state == MOVINGSTICKY);
+			scene->playerMoving = !racketObstacleCollision(&obstList, *racket) && leftClic && (ball->state == MOVING || ball->state == MOVINGSTICKY);
 			ballRacketCollision(ball, racket);
 			ballCorridorCollision(ball, scene);
 			ballObstacleCollision(ball, &obstList);
@@ -238,7 +234,7 @@ int main(int argc, char** argv)
 			/* Scene rendering */
 			drawWall(*scene);
 			drawLinesWall(scene, &lineList);
-			updateObstacles(scene, &obstList, racket, racketObstacleColliding);
+			updateObstacles(scene, &obstList, racket);
 			drawBall(*ball);
 			drawRacket(*racket);
 			updateBonus(scene, &bonusList);

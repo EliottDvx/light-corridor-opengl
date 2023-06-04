@@ -104,6 +104,10 @@ void ballObstacleCollision(Ball *ball, ObstList *list){
 
 void ballVoidCollision(Ball *ball, Scene* scene){
     if(ball->z <= 0 - ball->size){
-        scene->gameState = OVER;
+        ball->state = STICKY;
+        scene->lives--;
+        if(scene->lives <= 0){
+            scene->gameState = OVER;
+        }
     }
 }

@@ -35,6 +35,8 @@ int racketObstacleColliding = 0;
 
 Scene *scene;
 
+Ball *ball;
+
 /* Error handling function */
 void onError(int error, const char* description)
 {
@@ -110,6 +112,9 @@ void onClic(GLFWwindow* window, int button, int action, int mods){
 		switch(button){
 			case GLFW_MOUSE_BUTTON_LEFT :
 				leftClic = 1;
+				if(ball->state == STICKY){
+					ball->state = MOVING;
+				}
 				break;
 			default: fprintf(stdout,"Touche non gérée (%d)\n",button);
 		}
@@ -147,7 +152,7 @@ int main(int argc, char** argv)
 	initListBonus(&bonusList);
 	addBonus(&bonusList, 190, *scene);
 	
-	Ball *ball = createBall();
+	ball = createBall();
 
 	/* GLFW initialisation */
 	GLFWwindow* window;
@@ -221,6 +226,7 @@ int main(int argc, char** argv)
 			drawBall(*ball);
 			drawRacket(*racket);
 			updateBonus(scene, &bonusList);
+			drawLives(scene);
 		}
 
 		/* Swap front and back buffers */

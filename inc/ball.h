@@ -13,6 +13,7 @@ typedef enum {
     STICKY,
     MOVING
 } BallState;
+
 typedef struct Ball{
     double size;
     double x;

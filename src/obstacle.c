@@ -99,7 +99,6 @@ void drawObstacle(Obst *obst){
 
 void updateObstacles(Scene *scene, ObstList *list, Racket *racket){
 	Obst *obst = list->first;
-	glLineWidth(2.);
 
 	for (obst = list->first; obst != NULL;) {
 		drawObstacle(obst);

@@ -11,10 +11,10 @@ Ball *createBall(){
     ball->x = 0;
     ball->y = 0;
     ball->z = 10;
+    ball->maxSpeed = .3; // Vitesse de la balle
     ball->vx = 0;
     ball->vy = 0;
-    ball->vz = -.2;
-    ball->maxSpeed = .2;
+    ball->vz = -ball->maxSpeed;
     ball->state = STICKY;
     return ball;
     ball->xStickyOffset = 0;
@@ -95,10 +95,11 @@ void ballCorridorCollision(Ball *ball, Scene *scene){
 
 void ballObstacleCollision(Ball *ball, ObstList *list){
     Obst *obst = list->first;
-    float wallThickness = .5; // Evite que la balle traverse le mur par l'arrière
+    float wallThicknessFront = .2; // Evite que la balle traverse le mur
+    float wallThicknessBack = .6; // Evite que la balle traverse le mur
 
     for (obst = list->first; obst != NULL;) {
-        if(ball->z + ball->size/2 >= obst->z && ball->z - ball->size/2 <= obst->z + wallThickness){
+        if(ball->z + ball->size/2 >= obst->z - wallThicknessFront && ball->z - ball->size/2 <= obst->z + wallThicknessBack/2){
             if(ball->x >= obst->x - obst->width/2 - ball->size &&
                ball->x <= obst->x + obst->width/2 + ball->size &&
                ball->y >= obst->y - obst->height/2 - ball->size &&

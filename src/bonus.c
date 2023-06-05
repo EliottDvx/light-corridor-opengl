@@ -119,7 +119,7 @@ void updateBonus(Scene *scene, BonusList *list){
 
 			retireBonus(list, bonus);
 
-            addBonus(list, (rand()%5 * 20) + 100, *scene, type);
+            addBonus(list, (rand()%6 * 20) + 100, *scene, type);
             
 			bonus = nextBonus;
 		}

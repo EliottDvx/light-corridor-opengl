@@ -83,23 +83,23 @@ void ballRacketCollision(Ball *ball, Racket *racket){
 
 void ballCorridorCollision(Ball *ball, Scene *scene){
     if(ball->x >= scene->width/2 - ball->size){
-        ball->vx = -ball->vx;
+        ball->vx = -fabs(ball->vx);
     }
     if(ball->x <= -scene->width/2 + ball->size){
-        ball->vx = -ball->vx;
+        ball->vx = fabs(ball->vx);
     }
     if(ball->y >= scene->height/2 - ball->size){
-        ball->vy = -ball->vy;
+        ball->vy = -fabs(ball->vy);
     }
     if(ball->y <= -scene->height/2 + ball->size){
-        ball->vy = -ball->vy;
+        ball->vy = fabs(ball->vy);
     }
 }
 
 void ballObstacleCollision(Ball *ball, ObstList *list){
     Obst *obst = list->first;
-    float wallThicknessFront = .2; // Evite que la balle traverse le mur
-    float wallThicknessBack = .9; // Evite que la balle traverse le mur
+    float wallThicknessFront = .2; // Evite que la balle traverse le mur de face
+    float wallThicknessBack = .9; // Evite que la balle traverse le mur de dos
 
     for (obst = list->first; obst != NULL;) {
         if(ball->z + ball->size/2 >= obst->z - wallThicknessFront && ball->z - ball->size/2 <= obst->z + wallThicknessBack/2){

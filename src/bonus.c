@@ -18,7 +18,7 @@ Bonus *createBonus(float z, Scene scene, BonusType type)
     newBonus->width = .8;
 
     newBonus->x = rand()%((int)scene.width/2 - (int)scene.width/4);
-	newBonus->y = rand()%((int)scene.height/2 - (int)scene.height/4);
+	newBonus->y = 0;
 
 	newBonus->type = type;
 

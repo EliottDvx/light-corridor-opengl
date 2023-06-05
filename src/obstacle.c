@@ -86,9 +86,9 @@ void retireObst(ObstList* list, Obst *obst)
 }
 
 void drawObstacle(Obst *obst){
-	obst->colorR = -obst->z/500+0.2;
-	obst->colorG = -obst->z/500+0.2;
-	obst->colorB = -obst->z/500+0.4;
+	obst->colorR = -obst->z/150+0.2;
+	obst->colorG = -obst->z/150+0.2;
+	obst->colorB = -obst->z/150+0.4;
 	glPushMatrix();
 		glColor3f(obst->colorR,obst->colorG,obst->colorB);
 		glTranslatef(obst->x, obst->y, obst->z);
@@ -99,7 +99,6 @@ void drawObstacle(Obst *obst){
 
 void updateObstacles(Scene *scene, ObstList *list, Racket *racket){
 	Obst *obst = list->first;
-	glLineWidth(2.);
 
 	for (obst = list->first; obst != NULL;) {
 		drawObstacle(obst);

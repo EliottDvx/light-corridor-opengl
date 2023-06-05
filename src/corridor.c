@@ -6,58 +6,58 @@ void drawWall(Scene scene) {
 	//glColor3f(0.33,0.37,0.46);
 	glPushMatrix();
 		
-		for(int i = 0; i<20;i++){
+		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.33-(j/50);
-				float g = 0.37-(j/50);
-				float b = 0.46-(j/50);
+				float r = 0.33-(j/100);
+				float g = 0.37-(j/100);
+				float b = 0.46-(j/100);
 				glColor3f(r, g, b);
-				glTranslatef(5,0.,i*5.);
+				glTranslatef(5,0.,i);
 				glRotatef(90, 0, 1, 0);
-				glScalef(5, scene.height, 0);
+				glScalef(1, scene.height, 0);
 				drawSquare();
 			glPopMatrix();
 		}
 		
-		for(int i = 0; i<20;i++){
+		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.33-(j/50);
-				float g = 0.37-(j/50);
-				float b = 0.46-(j/50);
+				float r = 0.33-(j/100);
+				float g = 0.37-(j/100);
+				float b = 0.46-(j/100);
 				glColor3f(r, g, b);
-				glTranslatef(-5,0.,i*5.);
+				glTranslatef(-5,0.,i);
 				glRotatef(90, 0, 1, 0);
-				glScalef(5, scene.height, 0);
+				glScalef(1, scene.height, 0);
 				drawSquare();
 			glPopMatrix();
 		}
 
-		for(int i = 0; i<20;i++){
+		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.17-(j/50);
-				float g = 0.19-(j/50);
-				float b = 0.27-(j/50);
+				float r = 0.17-(j/200);
+				float g = 0.19-(j/200);
+				float b = 0.27-(j/200);
 				glColor3f(r, g, b);
-				glTranslatef(0.,-5./ratio,i*5.);
+				glTranslatef(0.,-5./ratio,i);
 				glRotatef(-90, 1, 0, 0);
-				glScalef(scene.width, 5, 0);
+				glScalef(scene.width, 1, 0);
 				drawSquare();
 			glPopMatrix();
 		}
 
-		for(int i = 0; i<20;i++){
+		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.17-(j/50);
-				float g = 0.19-(j/50);
-				float b = 0.27-(j/50);
+				float r = 0.17-(j/200);
+				float g = 0.19-(j/200);
+				float b = 0.27-(j/200);
 				glColor3f(r, g, b);
-				glTranslatef(0.,5./ratio,i*5.);
+				glTranslatef(0.,5./ratio,i);
 				glRotatef(-90, 1, 0, 0);
-				glScalef(scene.width, 5, 0);
+				glScalef(scene.width, 1, 0);
 				drawSquare();
 			glPopMatrix();
 		}

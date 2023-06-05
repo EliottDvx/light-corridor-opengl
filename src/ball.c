@@ -22,7 +22,10 @@ Ball *createBall(){
 }
 
 void drawBall(Ball ball){
-    glColor3f(0.6,0.6,0.8);
+    float R = -ball.z/80+0.6;
+	float G = -ball.z/80+0.6;
+	float B = -ball.z/60+0.8;
+    glColor3f(R,G,B);
 	glPushMatrix();
         glTranslatef(ball.x, ball.y, ball.z);
         glScalef(ball.size, ball.size, ball.size);

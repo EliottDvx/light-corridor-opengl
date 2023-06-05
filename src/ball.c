@@ -99,7 +99,7 @@ void ballCorridorCollision(Ball *ball, Scene *scene){
 void ballObstacleCollision(Ball *ball, ObstList *list){
     Obst *obst = list->first;
     float wallThicknessFront = .2; // Evite que la balle traverse le mur
-    float wallThicknessBack = .6; // Evite que la balle traverse le mur
+    float wallThicknessBack = .9; // Evite que la balle traverse le mur
 
     for (obst = list->first; obst != NULL;) {
         if(ball->z + ball->size/2 >= obst->z - wallThicknessFront && ball->z - ball->size/2 <= obst->z + wallThicknessBack/2){

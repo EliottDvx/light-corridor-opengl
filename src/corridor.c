@@ -9,9 +9,9 @@ void drawWall(Scene scene) {
 		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.33-(j/100);
-				float g = 0.37-(j/100);
-				float b = 0.46-(j/100);
+				float r = 0.33-(j/120);
+				float g = 0.37-(j/120);
+				float b = 0.46-(j/120);
 				glColor3f(r, g, b);
 				glTranslatef(5,0.,i);
 				glRotatef(90, 0, 1, 0);
@@ -23,9 +23,9 @@ void drawWall(Scene scene) {
 		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.33-(j/100);
-				float g = 0.37-(j/100);
-				float b = 0.46-(j/100);
+				float r = 0.33-(j/120);
+				float g = 0.37-(j/120);
+				float b = 0.46-(j/120);
 				glColor3f(r, g, b);
 				glTranslatef(-5,0.,i);
 				glRotatef(90, 0, 1, 0);
@@ -37,9 +37,9 @@ void drawWall(Scene scene) {
 		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.17-(j/200);
-				float g = 0.19-(j/200);
-				float b = 0.27-(j/200);
+				float r = 0.17-(j/250);
+				float g = 0.19-(j/250);
+				float b = 0.27-(j/250);
 				glColor3f(r, g, b);
 				glTranslatef(0.,-5./ratio,i);
 				glRotatef(-90, 1, 0, 0);
@@ -51,9 +51,9 @@ void drawWall(Scene scene) {
 		for(int i = 0; i<100;i++){
 			glPushMatrix();
 				float j = i;
-				float r = 0.17-(j/200);
-				float g = 0.19-(j/200);
-				float b = 0.27-(j/200);
+				float r = 0.17-(j/250);
+				float g = 0.19-(j/250);
+				float b = 0.27-(j/250);
 				glColor3f(r, g, b);
 				glTranslatef(0.,5./ratio,i);
 				glRotatef(-90, 1, 0, 0);
